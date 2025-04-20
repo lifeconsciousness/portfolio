@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&family=Noto+Sans+Mono:wght@100..900&display=swap");
+
+body {
+  background-color: rgb(49, 77, 57);
+  color: azure;
+
+
+  // overflow: hidden;
+
+  font-family: "Noto Sans Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+
+  min-height: 100vh;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+a,p,li{
+    display: block;
+    text-decoration: none;
+    color: #b6d3ff;
+}
+
+ul {
+    li{
+        margin-left: 20px;
+    }
+}
+
+nav, footer{
+  z-index: 1000;  
+}
+
+.links, .socials{
+    display: flex;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+}
