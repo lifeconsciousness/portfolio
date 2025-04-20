@@ -1,9 +1,11 @@
 {
     "projects": [
-        "First",
-        "Second",
-        "Third",
-        "Fourth",
-        "Fifth"
+      { "name": "First", "src": "IMG00262.jpg", "priority": 0 },
+      { "name": "Second", "src": "four.jpg", "priority": 1 },
+      { "name": "Third", "src": "bird.png", "priority": 0 },
+      { "name": "Fourth", "src": "shadow.png", "priority": 2 },
+      { "name": "Fifth", "src": "ep_cover.png", "priority": 1 },
+      { "name": "Sixth", "src": "1.png", "priority": 2 }
     ]
-}
+  }
+  
