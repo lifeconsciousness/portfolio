@@ -1,9 +1,9 @@
 .container{
     position: relative; 
-    width: 100wv;
-    height: 100wh;
-    width: 100swv;
-    height: 100swh;
+    width: 100vw;
+    height: 100vh;
+    // width: 100swv;
+    // height: 100swh;
     overflow: hidden;
     cursor: grab;
 }
@@ -11,28 +11,30 @@
 .canvas {
     position: absolute;
     will-change: transform;
+
+    // width: 1000px;
 }
 
 .item{
     position: absolute;
     height: 120px;
-    height: 160px;
+    width: 160px;
 
     overflow: hidden;
     background-color: rgb(241, 241, 241);
     cursor: pointer;
 }
 
-.expanded-item{
-    position: fixed;
-    z-index: 100;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    overflow: hidden;
-    cursor: pointer;
-}
+// .expanded-item{
+//     position: fixed;
+//     z-index: 100;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     background-color: white;
+//     overflow: hidden;
+//     cursor: pointer;
+// }
 
 img{
     width: 100%;
@@ -41,50 +43,50 @@ img{
     pointer-events: none;
 }
 
-.overlay{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(196, 251, 219);
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-    opacity: 0;
-    z-index: 2;
+// .overlay{
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     height: 100%;
+//     background-color: rgb(196, 251, 219);
+//     pointer-events: none;
+//     transition: opacity 0.2s ease;
+//     opacity: 0;
+//     z-index: 2;
 
-    .active {
-        pointer-events: none;
-        opacity: 1;
-    }
-}
+//     .active {
+//         pointer-events: none;
+//         opacity: 1;
+//     }
+// }
 
-.project-title {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    text-align: center;
-    pointer-events: none;
-    z-index: 1000;
+// .project-title {
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     width: 100%;
+//     text-align: center;
+//     pointer-events: none;
+//     z-index: 1000;
 
-    p{
-        position: relative;
-        height: 40px;
-        color: black;
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+//     p{
+//         position: relative;
+//         height: 40px;
+//         color: black;
+//         clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
     
-        .word {
-            position: relative;
-            display: inline-block;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 38px;
-            margin-right: 0.1em;
-            transform: translateY(0%);
-            will-change: transform;
-        }
-    }
-}
+//         .word {
+//             position: relative;
+//             display: inline-block;
+//             font-family: 'Courier New', Courier, monospace;
+//             font-size: 38px;
+//             margin-right: 0.1em;
+//             transform: translateY(0%);
+//             will-change: transform;
+//         }
+//     }
+// }
 
   
