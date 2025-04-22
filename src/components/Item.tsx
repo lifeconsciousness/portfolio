@@ -6,10 +6,12 @@ function Item({
   name,
   imgSrc,
   imgAlt,
+  style,
 }: {
   name: string;
   imgSrc: string;
   imgAlt: string;
+  style: {}
 }) {
   const [expanded, setExpanded] = useState(false);
 

@@ -1,7 +1,7 @@
 {
     "projects": [
-      { "name": "First", "filename": "IMG00262.jpg", "priority": 0 },
-      { "name": "Second", "filename": "four.jpg", "priority": 1 },
+      { "name": "First", "filename": "portrait.jpg", "priority": 0 },
+      { "name": "Second", "filename": "four.png", "priority": 1 },
       { "name": "Third", "filename": "bird.png", "priority": 0 },
       { "name": "Fourth", "filename": "shadow.png", "priority": 2 },
       { "name": "Fifth", "filename": "ep_cover.png", "priority": 1 },

@@ -24,7 +24,7 @@ function ItemOld({
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <>
+
       <div
         className="item"
         data--id={id} // TODO: maybe remove this one
