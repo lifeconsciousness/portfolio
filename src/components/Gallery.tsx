@@ -68,6 +68,16 @@ function Gallery() {
     const usedBoxes: BoundingBox[] = [];
     const positions: Position[] = [];
 
+    // Add the expanded item's bounding box first if there is one
+    if (isExpanded) {
+      usedBoxes.push({
+        x: 50, // from expandItem left position
+        y: 50, // from expandItem top position
+        width: container.clientWidth * 0.5, // 50vw
+        height: container.clientHeight * 0.5, // 50vh
+      });
+    }
+
     const isOverlapping = (newBox: BoundingBox): boolean => {
       return usedBoxes.some((box) => {
         return !(
@@ -93,25 +103,33 @@ function Gallery() {
     const findValidPosition = (priority: number): Position => {
       const startRadius = priority * (itemSize.width + gap);
       const angles = Array.from({ length: 16 }, (_, i) => (i * Math.PI) / 8);
-
+    
+      // Adjust centerX when there's an expanded item
+      const adjustedCenterX = isExpanded 
+        ? container.clientWidth * 0.75  // Center of the right half
+        : centerX;
+    
       for (
         let r = startRadius;
         r < Math.max(container.clientWidth, container.clientHeight);
         r += gap
       ) {
         for (const angle of angles) {
-          const x = centerX + r * Math.cos(angle) - itemSize.width / 2;
+          const x = adjustedCenterX + r * Math.cos(angle) - itemSize.width / 2;
           const y = centerY + r * Math.sin(angle) - itemSize.height / 2;
-
+    
           const newBox: BoundingBox = {
             x,
             y,
             width: itemSize.width,
             height: itemSize.height,
           };
-
+    
+          // Add minimum x position check when item is expanded
+          const minX = isExpanded ? container.clientWidth * 0.5 : 0;
+    
           if (
-            x >= 0 &&
+            x >= minX && // This ensures items stay in right half when expanded
             y >= 0 &&
             x + itemSize.width <= container.clientWidth &&
             y + itemSize.height <= container.clientHeight &&
@@ -121,17 +139,27 @@ function Gallery() {
           }
         }
       }
-
-      return { x: 0, y: 0 };
+    
+      return { x: container.clientWidth * 0.5, y: 0 }; // Default position moved to right half
     };
 
     const sortedProjects = [...projectsData.projects].sort(
       (a, b) => b.priority - a.priority
     ); // Reversed sort to put highest priority first
 
-    sortedProjects.forEach((project) => {
-      const pos = findValidPosition(project.priority);
-      addPosition(pos);
+    // sortedProjects.forEach((project) => {
+    //   const pos = findValidPosition(project.priority);
+    //   addPosition(pos);
+    // });
+
+    sortedProjects.forEach((project, index) => {
+      // Skip position calculation for expanded item
+      if (isExpanded && index === currentProjectIndex) {
+        positions.push({ x: 50, y: 50 }); // Fixed position for expanded item
+      } else {
+        const pos = findValidPosition(project.priority);
+        addPosition(pos);
+      }
     });
 
     console.log(positions);
@@ -143,52 +171,61 @@ function Gallery() {
     // If clicking on the currently expanded item to collapse it
     if (isExpanded && currentProjectIndex === index) {
       // Reset all items to their original positions
-      document.querySelectorAll('.item').forEach((item, i) => {
+      document.querySelectorAll(".item").forEach((item, i) => {
         gsap.to(item, {
-          position: 'absolute',
+          position: "absolute",
           width: `${itemSize.width}px`,
           height: `${itemSize.height}px`,
           left: `${positions[i]?.x}px`,
           top: `${positions[i]?.y}px`,
           zIndex: 1,
           duration: 0.5,
-          ease: 'power3.inOut'
+          ease: "power3.inOut",
+          onComplete: () => {
+            setIsExpanded(false);
+            calculatePositions();
+          }
         });
       });
-      setIsExpanded(false);
-    } 
+      // setIsExpanded(false);
+    }
     // If clicking a new item (whether another item is expanded or not)
     else {
       // First, make sure all items are in their original position
-      document.querySelectorAll('.item').forEach((item, i) => {
+      document.querySelectorAll(".item").forEach((item, i) => {
         if (i !== index) {
           gsap.to(item, {
-            position: 'absolute',
+            position: "absolute",
             width: `${itemSize.width}px`,
             height: `${itemSize.height}px`,
             left: `${positions[i]?.x}px`,
             top: `${positions[i]?.y}px`,
             zIndex: 1,
             duration: 0.5,
-            ease: 'power3.inOut'
+            ease: "power3.inOut",
           });
         }
       });
-  
+
       // Then expand the clicked item
       gsap.to(`.item-${index}`, {
-        position: 'relative',
-        top: '50px',
-        left: '50px',
-        width: '50vw',
-        height: '50vh',
+        position: "relative",
+        top: "50px",
+        left: "50px",
+        width: "50vw",
+        height: "50vh",
         zIndex: 100,
         duration: 0.5,
-        ease: 'power3.inOut'
+        ease: "power3.inOut",
+        onComplete: () => {
+          setIsExpanded(true);
+          setCurrentProjectIndex(index);
+          calculatePositions();
+        }
       });
-  
-      setIsExpanded(true);
-      setCurrentProjectIndex(index);
+
+      // setIsExpanded(true);
+      // setCurrentProjectIndex(index);
     }
   };
 
@@ -204,6 +241,12 @@ function Gallery() {
 
     return () => window.removeEventListener("resize", calculatePositions);
   }, []);
+
+  useEffect(() => {
+    if (!isCalculating) {
+      calculatePositions();
+    }
+  }, [isExpanded, currentProjectIndex]);
 
   return (
     <div className="gallery" ref={containerRef}>
