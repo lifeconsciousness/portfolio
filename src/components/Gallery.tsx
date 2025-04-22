@@ -20,9 +20,11 @@ interface BoundingBox {
 function Gallery() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [positions, setPositions] = useState<Position[]>([]);
-  const gap = 10; // gap between items
+  const gap = 10;
   const itemSize = { width: 200, height: 300 }; // fixed item size
   const [isCalculating, setIsCalculating] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [currentProjectIndex, setCurrentProjectIndex] = useState<number>(0);
 
   useGSAP(() => {
     const tl = gsap.timeline();
@@ -36,9 +38,9 @@ function Gallery() {
         top: "50%",
         xPercent: -50,
         yPercent: -50,
-        stagger: 0.1,
+        stagger: 0.2,
         duration: 0.5,
-        ease: "power3.out"
+        ease: "power3.out",
       });
     } else if (positions.length > 0) {
       // Animate to calculated positions
@@ -51,7 +53,7 @@ function Gallery() {
         yPercent: 0,
         stagger: 0.1,
         duration: 1,
-        ease: "power3.inOut"
+        ease: "power3.inOut",
       });
     }
   }, [isCalculating, positions]);
@@ -61,7 +63,7 @@ function Gallery() {
 
     const container = containerRef.current;
     const centerX = container.clientWidth / 2;
-    const centerY = container.clientHeight / 2 + 400;
+    const centerY = container.clientHeight / 2 - 200;
 
     const usedBoxes: BoundingBox[] = [];
     const positions: Position[] = [];
@@ -137,6 +139,59 @@ function Gallery() {
     setPositions(positions);
   };
 
+  const expandItem = (index: number) => {
+    // If clicking on the currently expanded item to collapse it
+    if (isExpanded && currentProjectIndex === index) {
+      // Reset all items to their original positions
+      document.querySelectorAll('.item').forEach((item, i) => {
+        gsap.to(item, {
+          position: 'absolute',
+          width: `${itemSize.width}px`,
+          height: `${itemSize.height}px`,
+          left: `${positions[i]?.x}px`,
+          top: `${positions[i]?.y}px`,
+          zIndex: 1,
+          duration: 0.5,
+          ease: 'power3.inOut'
+        });
+      });
+      setIsExpanded(false);
+    } 
+    // If clicking a new item (whether another item is expanded or not)
+    else {
+      // First, make sure all items are in their original position
+      document.querySelectorAll('.item').forEach((item, i) => {
+        if (i !== index) {
+          gsap.to(item, {
+            position: 'absolute',
+            width: `${itemSize.width}px`,
+            height: `${itemSize.height}px`,
+            left: `${positions[i]?.x}px`,
+            top: `${positions[i]?.y}px`,
+            zIndex: 1,
+            duration: 0.5,
+            ease: 'power3.inOut'
+          });
+        }
+      });
+  
+      // Then expand the clicked item
+      gsap.to(`.item-${index}`, {
+        position: 'relative',
+        top: '50px',
+        left: '50px',
+        width: '50vw',
+        height: '50vh',
+        zIndex: 100,
+        duration: 0.5,
+        ease: 'power3.inOut'
+      });
+  
+      setIsExpanded(true);
+      setCurrentProjectIndex(index);
+    }
+  };
+
   useEffect(() => {
     setIsCalculating(false);
 
@@ -145,7 +200,7 @@ function Gallery() {
       calculatePositions();
       window.addEventListener("resize", calculatePositions);
       setIsCalculating(false);
-    }, 1000);
+    }, 1700);
 
     return () => window.removeEventListener("resize", calculatePositions);
   }, []);
@@ -154,17 +209,28 @@ function Gallery() {
     <div className="gallery" ref={containerRef}>
       {projectsData.projects.map((project, i) => (
         <Item
+          index={i}
           key={i}
           name={project.name}
           imgSrc={`/img/${project.filename}`}
           imgAlt={project.name}
+          className={`item-${i}`}
           style={{
             position: "absolute",
             width: `${itemSize.width}px`,
             height: `${itemSize.height}px`,
           }}
+          onExpand={() => expandItem(i)}
+          // isExpanded={isExpanded}
+          isExpanded={isExpanded && currentProjectIndex === i}
         />
       ))}
+
+      {isExpanded && (
+        <div className="expanded-item">
+          <p>{projectsData.projects[currentProjectIndex].name}</p>
+        </div>
+      )}
     </div>
   );
 }
