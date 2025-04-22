@@ -17,7 +17,7 @@ function Item({
 
   return (
     <>
-      <div className="item">
+      <div className="item" style={style}>
         <p style={{ color: "black" }}>{name}</p>
         <img src={imgSrc} alt={imgAlt} />
         {expanded && <div className="expanded-item">is expanded</div>}

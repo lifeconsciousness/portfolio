@@ -3,13 +3,26 @@ import "/css/gallery.scss";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import projectsData from "../projects/projects.json";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+
+interface Position {
+  x: number;
+  y: number;
+}
+
+interface BoundingBox {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
 
 function Gallery() {
-  const containerRef = useRef(null);
-  const [gap, setGap] = useState(50);
-  const [imgSize, setImgSize] = useState({h: 300, w: 200});
-
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [positions, setPositions] = useState<Position[]>([]);
+  const gap = 10; // gap between items
+  const itemSize = { width: 200, height: 300 }; // fixed item size
+  const [isCalculating, setIsCalculating] = useState(true);
 
   useGSAP(() => {
     gsap.from(".item", {
@@ -17,51 +30,116 @@ function Gallery() {
       y: 30,
       stagger: 0.2,
       duration: 0.6,
-      ease: "power3.out"
+      ease: "power3.out",
     });
+  }, [isCalculating]);
+
+  const calculatePositions = () => {
+    if (!containerRef.current) return;
+
+    const container = containerRef.current;
+    const centerX = container.clientWidth / 2;
+    const centerY = container.clientHeight / 2 + 400;
+
+    const usedBoxes: BoundingBox[] = [];
+    const positions: Position[] = [];
+
+    const isOverlapping = (newBox: BoundingBox): boolean => {
+      return usedBoxes.some((box) => {
+        return !(
+          newBox.x + newBox.width + gap < box.x ||
+          newBox.x > box.x + box.width + gap ||
+          newBox.y + newBox.height + gap < box.y ||
+          newBox.y > box.y + box.height + gap
+        );
+      });
+    };
+
+    const addPosition = (pos: Position) => {
+      const newBox: BoundingBox = {
+        x: pos.x,
+        y: pos.y,
+        width: itemSize.width,
+        height: itemSize.height,
+      };
+      usedBoxes.push(newBox);
+      positions.push(pos);
+    };
+
+    const findValidPosition = (priority: number): Position => {
+      const startRadius = priority * (itemSize.width + gap);
+      const angles = Array.from({ length: 16 }, (_, i) => (i * Math.PI) / 8);
+
+      for (
+        let r = startRadius;
+        r < Math.max(container.clientWidth, container.clientHeight);
+        r += gap
+      ) {
+        for (const angle of angles) {
+          const x = centerX + r * Math.cos(angle) - itemSize.width / 2;
+          const y = centerY + r * Math.sin(angle) - itemSize.height / 2;
+
+          const newBox: BoundingBox = {
+            x,
+            y,
+            width: itemSize.width,
+            height: itemSize.height,
+          };
+
+          if (
+            x >= 0 &&
+            y >= 0 &&
+            x + itemSize.width <= container.clientWidth &&
+            y + itemSize.height <= container.clientHeight &&
+            !isOverlapping(newBox)
+          ) {
+            return { x, y };
+          }
+        }
+      }
+
+      return { x: 0, y: 0 };
+    };
+
+    const sortedProjects = [...projectsData.projects].sort(
+      (a, b) => b.priority - a.priority
+    ); // Reversed sort to put highest priority first
+
+    sortedProjects.forEach((project) => {
+      const pos = findValidPosition(project.priority);
+      addPosition(pos);
+    });
+
+
+    console.log(positions)
+    console.log(projectsData.projects)
+    setPositions(positions);
+    setIsCalculating(false);
+  };
+
+  useEffect(() => {
+    setIsCalculating(true);
+    calculatePositions();
+    window.addEventListener("resize", calculatePositions);
+    return () => window.removeEventListener("resize", calculatePositions);
   }, []);
-
-  const sortedProjects = [...projectsData.projects]
-    .sort((a, b) => a.priority - b.priority)
-    .slice(0, 9);
-
-  // Map of positions based on your sketch
-  const positionMap = [
-    { row: 0, col: 2 }, // 1
-    { row: 1, col: 3 }, // 2
-    { row: 3, col: 2 }, // 3
-    { row: 1, col: 1 }, // 4
-    { row: 0, col: 4 }, // 5
-    { row: 4, col: 1 }, // 6
-    { row: 3, col: 3 }, // 7
-    { row: 0, col: 0 }, // 8
-    { row: 1, col: 0 }, // 9
-  ];
-
-  const cellSize = 20; // in percent
-
-  const getPositionStyle = (row: number, col: number) => ({
-    position: "absolute",
-    top: `${row * cellSize}%`,
-    left: `${col * cellSize}%`,
-    // transform: "translate(0, 0)"
-  });
 
   return (
     <div className="gallery" ref={containerRef}>
-      {sortedProjects.map((project, i) => {
-        const pos = positionMap[i];
-        if (!pos) return null;
-        return (
-          <Item
-            key={i}
-            name={project.name}
-            imgSrc={`/img/${project.filename}`}
-            imgAlt={project.name}
-            style={getPositionStyle(pos.row, pos.col)}
-          />
-        );
-      })}
+      {!isCalculating && projectsData.projects.map((project, i) => (
+        <Item
+          key={i}
+          name={project.name}
+          imgSrc={`/img/${project.filename}`}
+          imgAlt={project.name}
+          style={{
+            left: `${positions[i].x}px`,
+            top: `${positions[i].y}px`,
+            width: `${itemSize.width}px`,
+            height: `${itemSize.height}px`,
+          }}
+        />
+      ))}
     </div>
   );
 }
