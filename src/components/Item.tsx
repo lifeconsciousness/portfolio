@@ -3,38 +3,22 @@
 import { useState } from "react";
 
 function Item({
-  id,
-  left,
-  top,
-  col,
-  row,
+  name,
   imgSrc,
   imgAlt,
-  action,
 }: {
-  id: string;
-  left: number;
-  top: number;
-  col: Number;
-  row: Number;
+  name: string;
   imgSrc: string;
   imgAlt: string;
-  action: () => void;
 }) {
   const [expanded, setExpanded] = useState(false);
 
   return (
     <>
-      <div
-        className="item"
-        data--id={id} // TODO: maybe remove this one
-        id={id}
-        style={{ left: left, top: top, position: "absolute" }}
-        onClick={action}
-      >
-        <p style={{color: "black"}}>itemx</p>
+      <div className="item">
+        <p style={{ color: "black" }}>{name}</p>
         <img src={imgSrc} alt={imgAlt} />
-        {expanded && <div className="expanded-item"></div>}
+        {expanded && <div className="expanded-item">is expanded</div>}
       </div>
     </>
   );

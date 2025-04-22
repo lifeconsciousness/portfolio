@@ -1,11 +1,11 @@
 {
     "projects": [
-      { "name": "First", "src": "IMG00262.jpg", "priority": 0 },
-      { "name": "Second", "src": "four.jpg", "priority": 1 },
-      { "name": "Third", "src": "bird.png", "priority": 0 },
-      { "name": "Fourth", "src": "shadow.png", "priority": 2 },
-      { "name": "Fifth", "src": "ep_cover.png", "priority": 1 },
-      { "name": "Sixth", "src": "1.png", "priority": 2 }
+      { "name": "First", "filename": "IMG00262.jpg", "priority": 0 },
+      { "name": "Second", "filename": "four.jpg", "priority": 1 },
+      { "name": "Third", "filename": "bird.png", "priority": 0 },
+      { "name": "Fourth", "filename": "shadow.png", "priority": 2 },
+      { "name": "Fifth", "filename": "ep_cover.png", "priority": 1 },
+      { "name": "Sixth", "filename": "1.png", "priority": 2 }
     ]
   }
   
