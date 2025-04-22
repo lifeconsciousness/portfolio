@@ -20,7 +20,7 @@ interface BoundingBox {
 function Gallery() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [positions, setPositions] = useState<Position[]>([]);
-  const gap = 10;
+  const [gap, setGap] = useState(10);
   const itemSize = { width: 200, height: 300 }; // fixed item size
   const [isCalculating, setIsCalculating] = useState(true);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -63,7 +63,9 @@ function Gallery() {
 
     const container = containerRef.current;
     const centerX = container.clientWidth / 2;
-    const centerY = container.clientHeight / 2 - 200;
+    const centerY = isExpanded 
+    ? 200  // Move items towards top when expanded
+    : container.clientHeight / 2 - 200;
 
     const usedBoxes: BoundingBox[] = [];
     const positions: Position[] = [];
@@ -106,7 +108,7 @@ function Gallery() {
     
       // Adjust centerX when there's an expanded item
       const adjustedCenterX = isExpanded 
-        ? container.clientWidth * 0.75  // Center of the right half
+        ? container.clientWidth * 0.8  // Center of the right half
         : centerX;
     
       for (
@@ -184,6 +186,7 @@ function Gallery() {
           onComplete: () => {
             setIsExpanded(false);
             calculatePositions();
+            setGap(10)
           }
         });
       });
@@ -206,6 +209,8 @@ function Gallery() {
           });
         }
       });
+
+      setGap(20)
 
       // Then expand the clicked item
       gsap.to(`.item-${index}`, {

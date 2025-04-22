@@ -17,7 +17,7 @@
   background-color: rgb(241, 241, 241);
   cursor: pointer;
 
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
 
@@ -34,4 +34,5 @@ img {
 .expanded-item{
     padding-top: 80px;
     padding-left: 150px;
+    min-height: 2000px;
 }
