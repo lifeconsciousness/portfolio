@@ -63,9 +63,9 @@ function Gallery() {
 
     const container = containerRef.current;
     const centerX = container.clientWidth / 2;
-    const centerY = isExpanded 
-    ? 200  // Move items towards top when expanded
-    : container.clientHeight / 2 - 200;
+    const centerY = isExpanded
+      ? 200 // Move items towards top when expanded
+      : container.clientHeight / 2 - 200;
 
     const usedBoxes: BoundingBox[] = [];
     const positions: Position[] = [];
@@ -105,12 +105,12 @@ function Gallery() {
     const findValidPosition = (priority: number): Position => {
       const startRadius = priority * (itemSize.width + gap);
       const angles = Array.from({ length: 16 }, (_, i) => (i * Math.PI) / 8);
-    
+
       // Adjust centerX when there's an expanded item
-      const adjustedCenterX = isExpanded 
-        ? container.clientWidth * 0.8  // Center of the right half
+      const adjustedCenterX = isExpanded
+        ? container.clientWidth * 0.8 // Center of the right half
         : centerX;
-    
+
       for (
         let r = startRadius;
         r < Math.max(container.clientWidth, container.clientHeight);
@@ -119,17 +119,17 @@ function Gallery() {
         for (const angle of angles) {
           const x = adjustedCenterX + r * Math.cos(angle) - itemSize.width / 2;
           const y = centerY + r * Math.sin(angle) - itemSize.height / 2;
-    
+
           const newBox: BoundingBox = {
             x,
             y,
             width: itemSize.width,
             height: itemSize.height,
           };
-    
+
           // Add minimum x position check when item is expanded
           const minX = isExpanded ? container.clientWidth * 0.5 : 0;
-    
+
           if (
             x >= minX && // This ensures items stay in right half when expanded
             y >= 0 &&
@@ -141,7 +141,7 @@ function Gallery() {
           }
         }
       }
-    
+
       return { x: container.clientWidth * 0.5, y: 0 }; // Default position moved to right half
     };
 
@@ -186,8 +186,8 @@ function Gallery() {
           onComplete: () => {
             setIsExpanded(false);
             calculatePositions();
-            setGap(10)
-          }
+            setGap(10);
+          },
         });
       });
       // setIsExpanded(false);
@@ -210,7 +210,7 @@ function Gallery() {
         }
       });
 
-      setGap(20)
+      setGap(20);
 
       // Then expand the clicked item
       gsap.to(`.item-${index}`, {
@@ -226,7 +226,7 @@ function Gallery() {
           setIsExpanded(true);
           setCurrentProjectIndex(index);
           calculatePositions();
-        }
+        },
       });
 
       // setIsExpanded(true);
@@ -240,7 +240,8 @@ function Gallery() {
     setTimeout(() => {
       setIsCalculating(true);
       calculatePositions();
-      window.addEventListener("resize", calculatePositions);
+      // window.addEventListener("resize", calculatePositions);
+      window.addEventListener("resize", () => {window.location.reload()});
       setIsCalculating(false);
     }, 1700);
 
@@ -276,7 +277,95 @@ function Gallery() {
 
       {isExpanded && (
         <div className="expanded-item">
-          <p>{projectsData.projects[currentProjectIndex].name}</p>
+          <h2>{projectsData.projects[currentProjectIndex].name}</h2>
+          <div className="expanded-body">
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eaque,
+              officia? Repellat, dolore natus, ducimus necessitatibus quas
+              numquam esse tempore, quasi placeat voluptates aut id autem
+              blanditiis consequuntur deleniti temporibus doloremque quis sit
+              similique! Mollitia, magnam, numquam aspernatur aliquam at dolore
+              deserunt voluptatem asperiores, rerum ut labore. Eveniet,
+              doloribus laboriosam earum sunt necessitatibus perferendis animi
+              mollitia reiciendis laudantium amet accusamus a corrupti dolorem.
+              Corrupti labore sit voluptates quibusdam obcaecati laudantium
+              voluptate maxime magni nisi, necessitatibus dolore natus
+              consequuntur blanditiis totam mollitia, libero expedita ex ut
+              voluptas, maiores eligendi. Distinctio magnam labore nisi et, sint
+              eaque voluptate, architecto doloremque illum sed laboriosam eum!
+              Quia autem quas sequi, dolores earum ex recusandae sed
+              repellendus, officiis ea hic assumenda magnam neque optio
+              asperiores laborum eum harum officia dolorum, ullam ratione beatae
+              non excepturi eligendi. Atque repellat, cupiditate perferendis
+              mollitia illum ullam cum veniam repudiandae voluptas quod omnis
+              enim dignissimos magni aliquid beatae soluta reiciendis. Ad, earum
+              recusandae, quidem molestias eum maiores vel unde, eius optio
+              commodi laboriosam ex iure repellendus maxime nisi cumque rerum
+              non! Esse minus labore error eligendi ipsum nam aliquam iste
+              laborum commodi libero ab fuga laboriosam, quae, saepe tempora?
+              Autem vero, fuga magni earum sunt tempore adipisci suscipit rem,
+              sed veniam facere temporibus et tenetur culpa ex ut possimus a
+              nobis ipsam nisi! Tenetur libero perferendis reiciendis dolorum
+              asperiores temporibus, maiores aliquam magni explicabo amet,
+              commodi consectetur culpa et assumenda eaque. Consequatur nisi
+              maiores accusamus voluptas, doloremque labore! Assumenda
+              exercitationem, vel sequi rerum illo labore obcaecati iusto aut
+              praesentium repellat reprehenderit eos voluptatem quibusdam
+              doloribus architecto! Voluptatem cupiditate consequatur magnam,
+              nulla enim sapiente ad temporibus hic ipsam. Laudantium corrupti,
+              sapiente maiores in soluta voluptatem magni mollitia molestias
+              quidem ex? Sit, tenetur quo doloribus ea fugiat neque earum
+              consequuntur laudantium eveniet beatae nobis necessitatibus
+              numquam. Tempore possimus voluptatum sit voluptas, error, suscipit
+              quod nostrum porro eveniet eos nam! Porro quo accusamus aliquid
+              sed omnis, aliquam culpa beatae! Blanditiis tempora vitae
+              voluptatem nostrum officia, veniam, sunt adipisci nihil modi
+              ducimus culpa fugit voluptatum facere eum debitis iusto
+              praesentium totam facilis soluta cupiditate perspiciatis
+              repudiandae. Excepturi enim nam minima debitis nostrum aut vel
+              deserunt cumque laudantium veniam a eius, doloribus quae quod
+              nobis voluptatum neque. Molestiae at rem quas fugit quidem animi
+              reiciendis velit natus optio libero maxime quod quis sint,
+              voluptatibus dolore earum consequuntur ab veniam corporis!
+              Deleniti consectetur sed laudantium dolorum. Nemo, dolor?
+              Provident quisquam facilis quod necessitatibus sit, magni, cumque
+              consequuntur omnis, ex blanditiis nobis esse ducimus repellendus
+              quas placeat iure in. Modi placeat, omnis ex asperiores debitis,
+              labore quae dolorem, sit saepe reiciendis consequatur possimus a
+              dolore delectus animi nostrum ad aut eveniet sequi! Facere
+              repellendus obcaecati corporis vero minus rerum quod laboriosam,
+              eos, totam hic fugit in suscipit qui dolorem. Nemo dolor esse
+              quisquam iure ipsum corrupti, id provident, non pariatur veritatis
+              similique iusto facere, atque unde rem rerum eius tenetur
+              repellendus enim voluptatum odit est explicabo adipisci? Libero
+              delectus possimus blanditiis sit nobis, minus quo, optio numquam
+              ipsa eos suscipit atque! Sequi amet facere blanditiis dolorum
+              ipsam rerum, modi veritatis minima inventore iste ipsa odit
+              possimus dolore ipsum et commodi quam laudantium accusantium quod,
+              assumenda voluptatibus, optio dolores explicabo consequuntur. Enim
+              magnam id voluptatibus pariatur vel minima sunt dolor deleniti
+              molestiae voluptate. Esse sunt atque temporibus tempore omnis
+              neque praesentium soluta fugit ut cum rem, quidem dicta iste vitae
+              minima tenetur sit ipsam blanditiis excepturi aut? Natus quis
+              provident doloribus distinctio, at mollitia temporibus alias quasi
+              recusandae, quidem, illo explicabo corrupti inventore totam magnam
+              doloremque molestias excepturi nesciunt! Consequatur, ratione!
+              Sint, at quasi suscipit eos laudantium asperiores esse commodi
+              blanditiis, optio laborum quo dolorum ex fugit natus! Praesentium
+              iure deleniti, ipsum perferendis error nostrum perspiciatis fugit
+              ratione ipsa cupiditate temporibus. Vitae veniam necessitatibus
+              illum possimus aspernatur totam, pariatur, voluptatem omnis odio
+              optio, aperiam eos in eius accusamus aliquam ea laudantium
+              incidunt cupiditate sequi nisi nesciunt? Amet, praesentium
+              reiciendis ratione possimus similique ut eum adipisci aspernatur,
+              nihil aperiam odit laudantium saepe, quaerat veritatis quo facere!
+              Labore, fuga. Consequatur sed magni nemo, porro ipsam quia quasi!
+              Voluptate ducimus illum molestiae deserunt accusamus libero et
+              modi pariatur minima soluta, corrupti quo. Sunt, atque qui modi
+              est culpa animi nesciunt debitis nostrum blanditiis. Accusantium
+              quos, velit consectetur quas at expedita non.
+            </p>
+          </div>
         </div>
       )}
     </div>
