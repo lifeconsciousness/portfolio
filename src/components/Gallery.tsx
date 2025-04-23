@@ -241,7 +241,9 @@ function Gallery() {
       setIsCalculating(true);
       calculatePositions();
       // window.addEventListener("resize", calculatePositions);
-      window.addEventListener("resize", () => {window.location.reload()});
+      window.addEventListener("resize", () => {
+        window.location.reload();
+      });
       setIsCalculating(false);
     }, 1700);
 
@@ -368,6 +370,7 @@ function Gallery() {
           </div>
         </div>
       )}
+
     </div>
   );
 }
