@@ -190,6 +190,8 @@ function Gallery() {
     }
     // If clicking a new item (whether another item is expanded or not)
     else {
+      setIsCollapsing(true);
+
       // First, make sure all items are in their original position
       document.querySelectorAll(".item").forEach((item, i) => {
         if (i !== index) {
@@ -202,11 +204,16 @@ function Gallery() {
             zIndex: 1,
             duration: 0.5,
             ease: "power3.inOut",
+            onComplete: () => {
+              setIsCollapsing(false);
+            }
           });
         }
       });
 
       setGap(20);
+
+      setIsCollapsing(true);
 
       // Then expand the clicked item
       gsap.to(`.item-${index}`, {
@@ -222,6 +229,8 @@ function Gallery() {
           setIsExpanded(true);
           setCurrentProjectIndex(index);
           calculatePositions();
+          setIsCollapsing(false);
+
         },
       });
 
@@ -279,7 +288,7 @@ function Gallery() {
             title={projectsData.projects[currentProjectIndex].name}
             isCollapsing={isCollapsing}
           />
-          <ExpandedBody isCollapsing={isCollapsing}/>
+          <ExpandedBody text={projectsData.projects[currentProjectIndex].content} isCollapsing={isCollapsing}/>
         </div>
       )}
     </div>
