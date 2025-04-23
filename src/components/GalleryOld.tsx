@@ -56,33 +56,7 @@ function Gallery() {
     { scope: container }
   ); // <-- scope is for selector text (optional)
 
-  const setupTitle = (t: String) => {
-    if (titleSplit) {
-      titleSplit.revert();
-    }
-    title.innerText = t;
-    titleSplit.current = new SplitType(title, { types: "words" });
-    gsap.set(titleSplit.current, { perspective: 400, y: "100%" });
-    // TODO: make a proper animation
-  };
-
-  const animateTitleIn = () => {
-    gsap.to(titleSplit.current, {
-      y: "0%",
-      duration: 1,
-      stagger: 0.2,
-      ease: "power3.out",
-    });
-  };
-
-  const animateTitleOut = () => {
-    gsap.to(titleSplit.current, {
-      y: "-100%",
-      duration: 1,
-      stagger: 0.2,
-      ease: "power3.out",
-    });
-  };
+  
 
   const updateVisibleItems = () => {
     const buffer = 2.5;

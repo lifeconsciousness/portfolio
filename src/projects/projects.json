@@ -5,7 +5,7 @@
       { "name": "Third", "filename": "bird.png", "priority": 0 },
       { "name": "Fourth", "filename": "shadow.png", "priority": 2 },
       { "name": "Fifth", "filename": "ep_cover.png", "priority": 1 },
-      { "name": "Sixth", "filename": "1.png", "priority": 2 }
+      { "name": "Sixth Two More", "filename": "1.png", "priority": 2 }
     ]
   }
   

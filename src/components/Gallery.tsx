@@ -1,4 +1,5 @@
 import Item from "./Item";
+import ProjectTitle from "./ProjectTitle";
 import "/css/gallery.scss";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -164,8 +165,8 @@ function Gallery() {
       }
     });
 
-    console.log(positions);
-    console.log(projectsData.projects);
+    // console.log(positions);
+    // console.log(projectsData.projects);
     setPositions(positions);
   };
 
@@ -279,7 +280,11 @@ function Gallery() {
 
       {isExpanded && (
         <div className="expanded-item">
-          <h2>{projectsData.projects[currentProjectIndex].name}</h2>
+          {/* <h2 id="project-title">{projectsData.projects[currentProjectIndex].name}</h2> */}
+          <ProjectTitle
+            key={currentProjectIndex}
+            title={projectsData.projects[currentProjectIndex].name}
+          />
           <div className="expanded-body">
             <p>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eaque,
@@ -370,7 +375,6 @@ function Gallery() {
           </div>
         </div>
       )}
-
     </div>
   );
 }
