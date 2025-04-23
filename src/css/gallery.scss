@@ -31,12 +31,29 @@ img {
   pointer-events: none;
 }
 
-.expanded-item{
-    padding-top: 80px;
-    padding-left: 150px;
-    min-height: 2000px;
+.expanded-item {
+  padding-top: 80px;
+  padding-left: 150px;
+  min-height: 2000px;
 }
 
-.expanded-body{
-    max-width: 50%;
+.expanded-body {
+  max-width: 50%;
+  opacity: 0;
+  visibility: hidden;
+
+  p {
+    line-height: 1.6;
+    margin-bottom: 1em;
+  }
+}
+
+.expanded-body.is-ready {
+  opacity: 1;
+  visibility: visible;
+}
+
+.project-title {
+  // color: rgb(95, 185, 253);
+  color: rgb(180, 252, 244);
 }
