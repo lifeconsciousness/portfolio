@@ -61,116 +61,297 @@ function Gallery() {
     }
   }, [isCalculating, positions]);
 
+  // const calculatePositions = () => {
+  //   if (!containerRef.current) return;
+
+  //   const container = containerRef.current;
+  //   const centerX = container.clientWidth / 2;
+  //   const centerY = isExpanded
+  //     ? 200 // Move items towards top when expanded
+  //     : container.clientHeight / 2 - 200;
+
+  //   const usedBoxes: BoundingBox[] = [];
+  //   const positions: Position[] = [];
+
+  //   // Add the expanded item's bounding box first if there is one
+  //   if (isExpanded) {
+  //     usedBoxes.push({
+  //       x: 50, // from expandItem left position
+  //       y: 50, // from expandItem top position
+  //       width: container.clientWidth * 0.5, // 50vw
+  //       height: container.clientHeight * 0.5, // 50vh
+  //     });
+  //   }
+
+  //   const isOverlapping = (newBox: BoundingBox): boolean => {
+  //     return usedBoxes.some((box) => {
+  //       return !(
+  //         newBox.x + newBox.width + gap < box.x ||
+  //         newBox.x > box.x + box.width + gap ||
+  //         newBox.y + newBox.height + gap < box.y ||
+  //         newBox.y > box.y + box.height + gap
+  //       );
+  //     });
+  //   };
+
+  //   const addPosition = (pos: Position) => {
+  //     const newBox: BoundingBox = {
+  //       x: pos.x,
+  //       y: pos.y,
+  //       width: itemSize.width,
+  //       height: itemSize.height,
+  //     };
+  //     usedBoxes.push(newBox);
+  //     positions.push(pos);
+  //   };
+
+  //   const findValidPosition = (priority: number): Position => {
+  //     const startRadius = priority * (itemSize.width + gap);
+  //     const angles = Array.from({ length: 16 }, (_, i) => (i * Math.PI) / 8);
+
+  //     // Adjust centerX when there's an expanded item
+  //     const adjustedCenterX = isExpanded
+  //       ? container.clientWidth * 0.8 // Center of the right half
+  //       : centerX;
+
+  //     for (
+  //       let r = startRadius;
+  //       r < Math.max(container.clientWidth, container.clientHeight);
+  //       r += gap
+  //     ) {
+  //       for (const angle of angles) {
+  //         const x = adjustedCenterX + r * Math.cos(angle) - itemSize.width / 2;
+  //         const y = centerY + r * Math.sin(angle) - itemSize.height / 2;
+
+  //         const newBox: BoundingBox = {
+  //           x,
+  //           y,
+  //           width: itemSize.width,
+  //           height: itemSize.height,
+  //         };
+
+  //         // Add minimum x position check when item is expanded
+  //         const minX = isExpanded ? container.clientWidth * 0.5 : 0;
+
+  //         if (
+  //           x >= minX && // This ensures items stay in right half when expanded
+  //           y >= 0 &&
+  //           x + itemSize.width <= container.clientWidth &&
+  //           y + itemSize.height <= container.clientHeight &&
+  //           !isOverlapping(newBox)
+  //         ) {
+  //           return { x, y };
+  //         }
+  //       }
+  //     }
+
+  //     return { x: container.clientWidth * 0.5, y: 0 }; // Default position moved to right half
+  //   };
+
+  //   const sortedProjects = [...projectsData.projects].sort(
+  //     (a, b) => b.priority - a.priority
+  //   ); // Reversed sort to put highest priority first
+
+  //   // sortedProjects.forEach((project) => {
+  //   //   const pos = findValidPosition(project.priority);
+  //   //   addPosition(pos);
+  //   // });
+
+  //   sortedProjects.forEach((project, index) => {
+  //     // Skip position calculation for expanded item
+  //     if (isExpanded && index === currentProjectIndex) {
+  //       positions.push({ x: 50, y: 50 }); // Fixed position for expanded item
+  //     } else {
+  //       const pos = findValidPosition(project.priority);
+  //       addPosition(pos);
+  //     }
+  //   });
+
+  //   // console.log(positions);
+  //   // console.log(projectsData.projects);
+  //   setPositions(positions);
+  // };
+
+
+
+
+
+
+
+
+  // const calculatePositions = () => {
+  //   if (!containerRef.current) return;
+  
+  //   const container = containerRef.current;
+  //   const centerX = container.clientWidth / 2;
+  //   const centerY = isExpanded ? 200 : container.clientHeight / 2 - 200;
+  
+  //   // Pre-calculate constants
+  //   const minX = isExpanded ? container.clientWidth * 0.5 : 0;
+  //   const adjustedCenterX = isExpanded ? container.clientWidth * 0.8 : centerX;
+  //   const maxRadius = Math.max(container.clientWidth, container.clientHeight);
+    
+  //   // Pre-calculate angles for reuse
+  //   const angles = new Float32Array(16);
+  //   for (let i = 0; i < 16; i++) {
+  //     angles[i] = (i * Math.PI) / 8;
+  //   }
+  
+  //   // Use Set for faster overlap checking
+  //   const usedPositions = new Set();
+  //   const positions: Position[] = [];
+  
+  //   // Add expanded item position if needed
+  //   if (isExpanded) {
+  //     positions[currentProjectIndex] = { x: 50, y: 50 };
+  //     usedPositions.add(`50,50`);
+  //   }
+  
+  //   const isOverlapping = (x: number, y: number): boolean => {
+  //     const boxSize = itemSize.width + gap;
+  //     for (const pos of usedPositions) {
+  //       const [posX, posY] = pos.split(',').map(Number);
+  //       if (
+  //         Math.abs(x - posX) < boxSize &&
+  //         Math.abs(y - posY) < boxSize
+  //       ) {
+  //         return true;
+  //       }
+  //     }
+  //     return false;
+  //   };
+  
+  //   const findValidPosition = (priority: number): Position => {
+  //     const startRadius = priority * (itemSize.width + gap);
+      
+  //     for (let r = startRadius; r < maxRadius; r += gap) {
+  //       for (const angle of angles) {
+  //         const x = Math.floor(adjustedCenterX + r * Math.cos(angle) - itemSize.width / 2);
+  //         const y = Math.floor(centerY + r * Math.sin(angle) - itemSize.height / 2);
+  
+  //         if (
+  //           x >= minX &&
+  //           y >= 0 &&
+  //           x + itemSize.width <= container.clientWidth &&
+  //           y + itemSize.height <= container.clientHeight &&
+  //           !isOverlapping(x, y)
+  //         ) {
+  //           usedPositions.add(`${x},${y}`);
+  //           return { x, y };
+  //         }
+  //       }
+  //     }
+  //     return { x: container.clientWidth * 0.5, y: 0 };
+  //   };
+  
+  //   const sortedProjects = projectsData.projects
+  //     .map((project, index) => ({ ...project, index }))
+  //     .sort((a, b) => b.priority - a.priority);
+  
+  //   for (const project of sortedProjects) {
+  //     if (!(isExpanded && project.index === currentProjectIndex)) {
+  //       positions[project.index] = findValidPosition(project.priority);
+  //     }
+  //   }
+  
+  //   setPositions(positions);
+  // };
+
+
+
+
   const calculatePositions = () => {
     if (!containerRef.current) return;
-
+  
     const container = containerRef.current;
     const centerX = container.clientWidth / 2;
-    const centerY = isExpanded
-      ? 200 // Move items towards top when expanded
-      : container.clientHeight / 2 - 200;
-
+    const centerY = isExpanded ? 200 : container.clientHeight / 2 - 200;
+  
+    // Pre-calculate constants
+    const minX = isExpanded ? container.clientWidth * 0.5 : 0;
+    const adjustedCenterX = isExpanded ? container.clientWidth * 0.8 : centerX;
+    const maxRadius = Math.max(container.clientWidth, container.clientHeight);
+    
+    // Pre-calculate angles for reuse
+    const angles = new Float32Array(16);
+    for (let i = 0; i < 16; i++) {
+      angles[i] = (i * Math.PI) / 8;
+    }
+  
+    // Track actual bounding boxes instead of just positions
     const usedBoxes: BoundingBox[] = [];
     const positions: Position[] = [];
-
-    // Add the expanded item's bounding box first if there is one
+  
+    // Add expanded item box if needed
     if (isExpanded) {
+      positions[currentProjectIndex] = { x: 50, y: 50 };
       usedBoxes.push({
-        x: 50, // from expandItem left position
-        y: 50, // from expandItem top position
-        width: container.clientWidth * 0.5, // 50vw
-        height: container.clientHeight * 0.5, // 50vh
+        x: 50,
+        y: 50,
+        width: container.clientWidth * 0.5,
+        height: container.clientHeight * 0.5
       });
     }
-
-    const isOverlapping = (newBox: BoundingBox): boolean => {
-      return usedBoxes.some((box) => {
-        return !(
-          newBox.x + newBox.width + gap < box.x ||
-          newBox.x > box.x + box.width + gap ||
-          newBox.y + newBox.height + gap < box.y ||
-          newBox.y > box.y + box.height + gap
-        );
-      });
-    };
-
-    const addPosition = (pos: Position) => {
-      const newBox: BoundingBox = {
-        x: pos.x,
-        y: pos.y,
+  
+    const isOverlapping = (x: number, y: number): boolean => {
+      const newBox = {
+        x,
+        y,
         width: itemSize.width,
-        height: itemSize.height,
+        height: itemSize.height
       };
-      usedBoxes.push(newBox);
-      positions.push(pos);
+      
+      return usedBoxes.some(box => !(
+        newBox.x + newBox.width + gap < box.x ||
+        newBox.x > box.x + box.width + gap ||
+        newBox.y + newBox.height + gap < box.y ||
+        newBox.y > box.y + box.height + gap
+      ));
     };
-
+  
     const findValidPosition = (priority: number): Position => {
       const startRadius = priority * (itemSize.width + gap);
-      const angles = Array.from({ length: 16 }, (_, i) => (i * Math.PI) / 8);
-
-      // Adjust centerX when there's an expanded item
-      const adjustedCenterX = isExpanded
-        ? container.clientWidth * 0.8 // Center of the right half
-        : centerX;
-
-      for (
-        let r = startRadius;
-        r < Math.max(container.clientWidth, container.clientHeight);
-        r += gap
-      ) {
+      
+      for (let r = startRadius; r < maxRadius; r += gap) {
         for (const angle of angles) {
-          const x = adjustedCenterX + r * Math.cos(angle) - itemSize.width / 2;
-          const y = centerY + r * Math.sin(angle) - itemSize.height / 2;
-
-          const newBox: BoundingBox = {
-            x,
-            y,
-            width: itemSize.width,
-            height: itemSize.height,
-          };
-
-          // Add minimum x position check when item is expanded
-          const minX = isExpanded ? container.clientWidth * 0.5 : 0;
-
+          const x = Math.floor(adjustedCenterX + r * Math.cos(angle) - itemSize.width / 2);
+          const y = Math.floor(centerY + r * Math.sin(angle) - itemSize.height / 2);
+  
           if (
-            x >= minX && // This ensures items stay in right half when expanded
+            x >= minX &&
             y >= 0 &&
             x + itemSize.width <= container.clientWidth &&
             y + itemSize.height <= container.clientHeight &&
-            !isOverlapping(newBox)
+            !isOverlapping(x, y)
           ) {
+            usedBoxes.push({
+              x,
+              y,
+              width: itemSize.width,
+              height: itemSize.height
+            });
             return { x, y };
           }
         }
       }
-
-      return { x: container.clientWidth * 0.5, y: 0 }; // Default position moved to right half
+      return { x: container.clientWidth * 0.5, y: 0 };
     };
-
-    const sortedProjects = [...projectsData.projects].sort(
-      (a, b) => b.priority - a.priority
-    ); // Reversed sort to put highest priority first
-
-    // sortedProjects.forEach((project) => {
-    //   const pos = findValidPosition(project.priority);
-    //   addPosition(pos);
-    // });
-
-    sortedProjects.forEach((project, index) => {
-      // Skip position calculation for expanded item
-      if (isExpanded && index === currentProjectIndex) {
-        positions.push({ x: 50, y: 50 }); // Fixed position for expanded item
-      } else {
-        const pos = findValidPosition(project.priority);
-        addPosition(pos);
+  
+    const sortedProjects = projectsData.projects
+      .map((project, index) => ({ ...project, index }))
+      .sort((a, b) => b.priority - a.priority);
+  
+    for (const project of sortedProjects) {
+      if (!(isExpanded && project.index === currentProjectIndex)) {
+        positions[project.index] = findValidPosition(project.priority);
       }
-    });
-
-    // console.log(positions);
-    // console.log(projectsData.projects);
+    }
+  
     setPositions(positions);
   };
+
+
+
 
   const expandItem = (index: number) => {
     // If clicking on the currently expanded item to collapse it
