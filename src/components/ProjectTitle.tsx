@@ -4,9 +4,10 @@ import gsap from "gsap";
 
 interface ProjectTitleProps {
   title: string;
+  isCollapsing?: boolean;
 }
 
-function ProjectTitle({ title }: ProjectTitleProps) {
+function ProjectTitle({ title, isCollapsing }: ProjectTitleProps) {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const [titleSplit, setTitleSplit] = useState<SplitType | null>(null);
 
@@ -25,6 +26,17 @@ function ProjectTitle({ title }: ProjectTitleProps) {
       y: "100%",
     });
   };
+
+  useEffect(() => {
+    if (isCollapsing && titleSplit) {
+      gsap.to(titleSplit.words, {
+        y: "-100%",
+        duration: 0.5,
+        stagger: 0.05,
+        ease: "power3.in",
+      });
+    }
+  }, [isCollapsing]);
 
   // Reset and re-run animation when title changes
   useEffect(() => {

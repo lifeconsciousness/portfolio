@@ -5,7 +5,11 @@ import SplitType from "split-type";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function ExpandedBody() {
+interface ExpandedBodyProps {
+  isCollapsing?: boolean;
+}
+
+function ExpandedBody({ isCollapsing }: ExpandedBodyProps) {
     const textRef = useRef<HTMLParagraphElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const [textSplit, setTextSplit] = useState<SplitType | null>(null);
@@ -36,19 +40,26 @@ function ExpandedBody() {
             textSplit?.revert();
             setTextSplit(null);
             setupText();
-        }, 700)
+        }, 650)
     }, []);
+
+    useEffect(() => {
+      if (isCollapsing && textSplit && textSplit.lines) {
+        // Kill all scroll triggers before collapse animation
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+        
+        gsap.to(textSplit.lines, {
+          y: 100,
+          opacity: 0,
+          duration: 0.1,
+          stagger: 0.05,
+          ease: "power3.in"
+        });
+      }
+    }, [isCollapsing]);
   
     useEffect(() => {
       if (textSplit && textSplit.lines) {
-        gsap.to(textSplit.lines, {
-          y: 0,
-          opacity: 1,
-          duration: 3,
-          stagger: 1,
-          ease: "power3.out",
-        });
-  
         // ScrollTrigger animations
         textSplit.lines.forEach((line) => {
           gsap.to(line, {

@@ -9,6 +9,8 @@ function App() {
 
       <Gallery />
 
+      <div style={{minHeight: 1000}}></div>
+
       <footer>
       </footer>
     </>
