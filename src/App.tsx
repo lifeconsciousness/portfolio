@@ -8,6 +8,10 @@ function App() {
     <>
       <Navbar />
 
+      <div className="grape-container">
+          <img className="grape" src="/img/grapevine.svg" alt="flower" />
+        </div>
+
       <div style={{ minHeight: 60 }}></div>
 
       <Gallery />
@@ -17,7 +21,8 @@ function App() {
       <footer>
         <div className="title-wrapper">
           <h1 className="title">
-            <span>Let's get in contact :)</span>
+            {/* <span>Let's get in contact :)</span> */}
+            <span>Let's work together :)</span>
           </h1>
         </div>
         <button></button>

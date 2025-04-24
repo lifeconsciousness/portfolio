@@ -14,8 +14,8 @@ body {
 
   min-height: 100vh;
 
-//   background-image: url("data:image/svg+xml,%3C!-- svg: first layer --%3E%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-//   background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20250%20250%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cfilter%20id%3D%22noiseFilter%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%224%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22/%3E%3C/filter%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20filter%3D%22url(%23noiseFilter)%22%20opacity%3D%220.1%22/%3E%3C/svg%3E");
+  //   background-image: url("data:image/svg+xml,%3C!-- svg: first layer --%3E%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  //   background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20250%20250%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cfilter%20id%3D%22noiseFilter%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%224%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22/%3E%3C/filter%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20filter%3D%22url(%23noiseFilter)%22%20opacity%3D%220.1%22/%3E%3C/svg%3E");
 
   background-color: rgb(49, 77, 57);
   // background-color: rgb(63, 90, 67);
@@ -63,7 +63,7 @@ ul {
 }
 
 nav,
-footer {   
+footer {
   z-index: 1000;
 }
 
@@ -75,14 +75,24 @@ nav {
   padding-right: 1.5rem;
 }
 
+.logo:hover {
+  filter: url("#turbulenceEffectForIcon");
+}
+
 .links,
 .socials {
   display: flex;
   // gap: 20px;
 }
 
-.socials{
+.socials {
   padding-right: 50px;
+
+  li{
+    &:hover {
+      filter: url("#turbulenceEffectForIcon");
+    }
+  }
 }
 
 nav {
@@ -117,7 +127,34 @@ nav {
   user-select: none;
 }
 
-@media screen and (max-width: 768px){
+.grape-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  // width: 70vw;
+  // height: 70vh;
+  // width: 1000px;
+  // height: 1000px;
+  overflow: visible;
+  right: 0;
+  z-index: -1;
+}
+
+.grape {
+  // object-fit: fill;
+  position: absolute;
+  width: 110vw;
+  height: 100vh;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -500px;
+  overflow: visible;
+  opacity: 0.3;
+  user-select: none;
+}
+
+@media screen and (max-width: 768px) {
   .flower-container {
     display: none;
   }
@@ -129,9 +166,6 @@ footer {
   justify-content: center;
   min-height: 60vh;
 }
-
-
-
 
 .title {
   font-size: 0; /* Set real font-size in child <span> */
