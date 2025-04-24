@@ -7,7 +7,8 @@ body {
 
   font-family: "Noto Sans Mono", monospace;
   font-optical-sizing: auto;
-  font-weight: 700;
+  font-weight: 500;
+
   font-style: normal;
   font-variation-settings: "wdth" 100;
 
@@ -20,6 +21,26 @@ body {
   // background-color: rgb(63, 90, 67);
   // background-color: rgb(78, 118, 84);
 }
+
+// body::before {
+//   content: "";
+//   position: absolute;
+//   top: -50%;
+//   left: -50%;
+//   width: 200%;
+//   height: 200%;
+//   // background: repeating-linear-gradient(
+//   //   135deg,
+//   //   var(--color-yellow),
+//   //   var(--color-yellow-green),
+//   //   var(--color-yellow),
+//   //   var(--color-blue-green),
+//   //   var(--color-yellow) 400px
+//   // );
+//   background: rgb(49, 77, 57);
+//   z-index: -1;
+//   filter: url("#turbulenceEffectForBackground");
+// }
 
 * {
   margin: 0;
@@ -81,6 +102,7 @@ nav {
   // height: 1000px;
   overflow: visible;
   right: 0;
+  z-index: -1;
 }
 
 .flower {
@@ -90,5 +112,32 @@ nav {
   // right: 50px;
   right: 6vw;
   overflow: visible; // This ensures the SVG isn't clipped
-  filter: brightness(0) invert(0.9);
+  filter: brightness(0) invert(0.93);
+  padding-bottom: 130px;
+  user-select: none;
+}
+
+@media screen and (max-width: 768px){
+  .flower-container {
+    display: none;
+  }
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+
+
+
+.title {
+  font-size: 0; /* Set real font-size in child <span> */
+  filter: url("#turbulenceEffectForText");
+}
+
+.title span {
+  font-size: 6vmin;
 }

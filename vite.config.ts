@@ -9,7 +9,8 @@ const cwd = process.cwd();
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "./",
+  // base: "./",
+  base: process.env.PRODUCTION == "true" ? "/portfolio/" : './',
   publicDir: path.join(cwd, "public"),
   root: path.join(cwd, "src"),
   server: {
@@ -22,10 +23,14 @@ export default defineConfig({
     sassDts(),
     tsconfigPaths(),
   ],
-  // plugins: [
-  //   react(),
-  //   sassDts(),
-  // ]
+  // build: {
+  //   assetsDir: 'assets',
+  //   rollupOptions: {
+  //     output: {
+  //       assetFileNames: 'assets/[name].[hash][extname]'
+  //     }
+  //   }
+  // }
 })
 
 

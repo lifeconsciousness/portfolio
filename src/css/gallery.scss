@@ -9,6 +9,8 @@
 }
 
 .item {
+  font-weight: 700;
+
   position: absolute;
   height: 300px;
   width: 200px;
@@ -22,6 +24,11 @@
   transform: translate(-50%, -50%);
 
   will-change: transform;
+  
+}
+
+.item:hover{
+  filter: url("#turbulenceEffectForIcon");
 }
 
 img {
