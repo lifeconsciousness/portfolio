@@ -60,7 +60,7 @@ function ProjectTitle({ title, isCollapsing }: ProjectTitleProps) {
 
   return (
     <h2 className="project-title" style={{ overflow: "hidden" }} ref={titleRef}>
-      {title}
+      {title} 
     </h2>
   );
 }
