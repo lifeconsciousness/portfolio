@@ -1,7 +1,5 @@
 // import "/css/main.scss";
 
-import { useState } from "react";
-
 function Item({
   index,
   name,
@@ -22,7 +20,7 @@ function Item({
   className: string;
 }) {
   return (
-    <div className={`item ${className}`} style={style} onClick={onExpand}>
+    <div className={`item ${className} ${index}`} style={style} onClick={onExpand}>
       <p
         style={{
           color: "black",
