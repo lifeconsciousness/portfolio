@@ -8,9 +8,33 @@ function App() {
     <>
       <Navbar />
 
-      <div className="grape-container">
+      {/* <div className="grape-container">
           <img className="grape" src="/img/grapevine.svg" alt="flower" />
-        </div>
+        </div>   */}
+
+      {/* <div className="butterfly-container">
+          <img className="butterfly" src="/img/butterfly0.svg" alt="flower" />
+        </div>   */}
+
+      {/* <div className="new-container">
+          <img className="new" src="/img/pillar.svg" alt="flower" />
+        </div>   */}
+        
+      {/* <div className="barbed-container">
+          <img className="barbed" src="/img/barbed-wire.svg" alt="flower" />
+        </div> */}
+
+      {/* <div className="new-container">
+          <img className="new" src="/img/manbookframe.svg" alt="flower" />
+        </div> */}
+
+      {/* <div className="new-container">
+          <img className="new" src="/img/LeafyFrame4.svg" alt="flower" />
+        </div> */}
+
+      {/* <div className="new-container">
+          <img className="new" src="/img/twolibertywomen.svg" alt="flower" />
+        </div> */}
 
       <div style={{ minHeight: 60 }}></div>
 

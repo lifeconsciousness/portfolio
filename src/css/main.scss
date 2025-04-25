@@ -127,6 +127,36 @@ nav {
   user-select: none;
 }
 
+.butterfly-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  width: 100vw;
+  height: 70vh;
+  // width: 1000px;
+  // height: 1000px;
+  overflow: visible;
+  right: 0;
+  z-index: -1;
+}
+
+.butterfly {
+  position: absolute;
+  width: 3vw;
+  height: 100px;
+  min-width: 20px;
+  // right: 50px;
+  top: -20px;
+  left: 130px;
+  overflow: visible; // This ensures the SVG isn't clipped
+  // filter: brightness(0) invert(0.93);
+  padding-bottom: 130px;
+  user-select: none;
+  transform: scaleX(-1);
+  rotate: 40deg;
+}
+
 .grape-container {
   position: absolute;
   width: 100%;
@@ -149,6 +179,65 @@ nav {
   left: 50%;
   transform: translateX(-50%);
   top: -500px;
+  overflow: visible;
+  opacity: 0.3;
+  user-select: none;
+}
+
+
+.barbed-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  // width: 70vw;
+  // height: 70vh;
+  // width: 1000px;
+  // height: 1000px;
+  overflow: visible;
+  right: 0;
+  z-index: -1;
+}
+
+.barbed {
+  // object-fit: fill;
+  position: absolute;
+  width: 100vw;
+  // width: 7000px;
+  height: vh;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -250px;
+  // rotate: 180deg;
+  overflow: visible;
+  opacity: 0.3;
+  user-select: none;
+}
+
+.new-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  // width: 70vw;
+  // height: 70vh;
+  // width: 1000px;
+  // height: 1000px;
+  overflow: visible;
+  right: 0;
+  z-index: -1;
+}
+
+.new {
+  // object-fit: fill;
+  position: absolute;
+  width: 100vw;
+  // width: 7000px;
+  height: vh;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -250px;
+  // rotate: 180deg;
   overflow: visible;
   opacity: 0.3;
   user-select: none;
