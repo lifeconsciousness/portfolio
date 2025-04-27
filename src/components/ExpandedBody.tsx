@@ -17,16 +17,20 @@ function ExpandedBody({ isCollapsing, description }: ExpandedBodyProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const [textSplit, setTextSplit] = useState<SplitType | null>(null);
     const [markdownContent, setMarkdownContent] = useState<string>('');
+    const [isLoading, setIsLoading] = useState(false);
   
     // Fetch and load markdown content
     useEffect(() => {
       const loadMarkdownContent = async () => {
         try {
+          setIsLoading(true)
           const response = await fetch(`/descriptions/${description}`);
           const content = await response.text();
           setMarkdownContent(content);
         } catch (error) {
           console.error('Error loading markdown:', error);
+        } finally {
+          setIsLoading(false);
         }
       };
 
@@ -57,12 +61,14 @@ function ExpandedBody({ isCollapsing, description }: ExpandedBodyProps) {
     };
   
     useEffect(() => {
+      if (!isLoading && markdownContent) {
         setTimeout(() => {
             textSplit?.revert();
             setTextSplit(null);
             setupText();
         }, 650)
-    }, [markdownContent]);
+      }
+    }, [markdownContent, isLoading]);
 
     useEffect(() => {
       if (isCollapsing && textSplit && textSplit.lines) {
