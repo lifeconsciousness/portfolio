@@ -23,7 +23,7 @@ function Gallery() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [positions, setPositions] = useState<Position[]>([]);
   const [gap, setGap] = useState(10);
-  const itemSize = { width: 200, height: 300 }; // fixed item size
+  const itemSize = { width: 200, height: 250 }; // fixed item size
   const [isCalculating, setIsCalculating] = useState(true);
   const [isExpanded, setIsExpanded] = useState(false);
   const [currentProjectIndex, setCurrentProjectIndex] = useState<number>(0);
@@ -65,7 +65,8 @@ function Gallery() {
     if (!containerRef.current) return;
 
     const container = containerRef.current;
-    const centerX = container.clientWidth / 2;
+    const centerX = container.clientWidth / 2 - 130;
+    // const centerY = isExpanded ? 200 : container.clientHeight / 2 - 200;
     const centerY = isExpanded ? 200 : container.clientHeight / 2 - 200;
 
     // Pre-calculate constants
@@ -158,6 +159,120 @@ function Gallery() {
     setPositions(positions);
   };
 
+  // const calculatePositions = () => {
+  //   if (!containerRef.current) return;
+
+  //   const container = containerRef.current;
+  //   const containerWidth = container.clientWidth;
+  //   const containerHeight = container.clientHeight;
+  //   const centerX = containerWidth / 2;
+  //   const centerY = isExpanded ? 200 : containerHeight / 2 - 200;
+
+  //   const step = 10; // search step
+  //   const maxRadius = Math.max(containerWidth, containerHeight);
+
+  //   const usedBoxes: BoundingBox[] = [];
+  //   const finalPositions: Position[] = [];
+
+  //   const randomOffset = (max: number) => Math.random() * max * 2 - max; // random between -max and +max
+
+  //   // Expanded item
+  //   if (isExpanded) {
+  //     finalPositions[currentProjectIndex] = { x: 50, y: 50 };
+  //     usedBoxes.push({
+  //       x: 50,
+  //       y: 50,
+  //       width: containerWidth * 0.5,
+  //       height: containerHeight * 0.5,
+  //     });
+  //   }
+
+  //   const isOverlapping = (x: number, y: number): boolean => {
+  //     const newBox = {
+  //       x,
+  //       y,
+  //       width: itemSize.width,
+  //       height: itemSize.height,
+  //     };
+
+  //     return usedBoxes.some(
+  //       (box) =>
+  //         !(
+  //           newBox.x + newBox.width + gap < box.x ||
+  //           newBox.x > box.x + box.width + gap ||
+  //           newBox.y + newBox.height + gap < box.y ||
+  //           newBox.y > box.y + box.height + gap
+  //         )
+  //     );
+  //   };
+
+  //   const sortedProjects = projectsData.projects
+  //     .map((project, index) => ({ ...project, index }))
+  //     .sort((a, b) => b.priority - a.priority);
+
+  //   let isFirst = true;
+
+  //   for (const project of sortedProjects) {
+  //     if (isExpanded && project.index === currentProjectIndex) continue;
+
+  //     if (isFirst) {
+  //       // First item exactly centered
+  //       const x = centerX - itemSize.width / 2;
+  //       const y = centerY - itemSize.height / 2;
+
+  //       finalPositions[project.index] = { x, y };
+  //       usedBoxes.push({
+  //         x,
+  //         y,
+  //         width: itemSize.width,
+  //         height: itemSize.height,
+  //       });
+  //       isFirst = false;
+  //       continue;
+  //     }
+
+  //     let found = false;
+
+  //     for (let r = 0; r < maxRadius && !found; r += step) {
+  //       for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / 18) {
+  //         let x = centerX + r * Math.cos(angle) - itemSize.width / 2;
+  //         let y = centerY + r * Math.sin(angle) - itemSize.height / 2;
+
+  //         // Add small random offset to make it less rigid
+  //         x += randomOffset(10);
+  //         y += randomOffset(10);
+
+  //         x = Math.floor(x);
+  //         y = Math.floor(y);
+
+  //         if (
+  //           x >= 0 &&
+  //           y >= 0 &&
+  //           x + itemSize.width <= containerWidth &&
+  //           y + itemSize.height <= containerHeight &&
+  //           !isOverlapping(x, y)
+  //         ) {
+  //           finalPositions[project.index] = { x, y };
+  //           usedBoxes.push({
+  //             x,
+  //             y,
+  //             width: itemSize.width,
+  //             height: itemSize.height,
+  //           });
+  //           found = true;
+  //           break;
+  //         }
+  //       }
+  //     }
+
+  //     if (!found) {
+  //       finalPositions[project.index] = { x: 0, y: 0 };
+  //     }
+  //   }
+
+  //   setPositions(finalPositions);
+  // };
+
   const expandItem = (index: number) => {
     // If clicking on the currently expanded item to collapse it
     if (isExpanded && currentProjectIndex === index) {
@@ -232,11 +347,15 @@ function Gallery() {
           setIsCollapsing(false);
         },
       });
-
-      // setIsExpanded(true);
-      // setCurrentProjectIndex(index);
     }
   };
+
+  function updateNoiseFilterHeight() {
+    document.body.style.setProperty(
+      "--page-height",
+      document.documentElement.scrollHeight + "px"
+    );
+  }
 
   useEffect(() => {
     setIsCalculating(false);
@@ -251,7 +370,11 @@ function Gallery() {
       setIsCalculating(false);
     }, 1700);
 
-    return () => window.removeEventListener("resize", calculatePositions);
+    return () => {
+      window.removeEventListener("resize", calculatePositions);
+      window.addEventListener("resize", updateNoiseFilterHeight);
+      window.addEventListener("load", updateNoiseFilterHeight);
+    };
   }, []);
 
   useEffect(() => {
@@ -281,9 +404,7 @@ function Gallery() {
           //     ? `${project.filename}`
           //     : `/img/${project.filename}`
           // }
-          imgSrc={
-              `/${project.filename}`
-          }
+          imgSrc={`/${project.filename}`}
           imgAlt={project.name}
           className={`item-${i}`}
           style={{

@@ -16,27 +16,31 @@ body {
 
   scroll-behavior: smooth;
   background-color: rgb(49, 77, 57);
+
 }
 
-// body::before {
-//   content: "";
-//   position: absolute;
-//   top: -50%;
-//   left: -50%;
-//   width: 200%;
-//   height: 200%;
-//   // background: repeating-linear-gradient(
-//   //   135deg,
-//   //   var(--color-yellow),
-//   //   var(--color-yellow-green),
-//   //   var(--color-yellow),
-//   //   var(--color-blue-green),
-//   //   var(--color-yellow) 400px
-//   // );
-//   background: rgb(49, 77, 57);
-//   z-index: -1;
-//   filter: url("#turbulenceEffectForBackground");
-// }
+
+
+
+body::before,
+body::after {
+  position: absolute;
+  left: 0;
+  top: -200px;
+  content: '';
+  width: 100%;
+  height: 270vh;
+  z-index: -1;
+  // background-color: rgb(17, 61, 46); // Add this to see the effect
+  background-color: rgba(18, 83, 11, 0.452); // Add this to see the effect
+  opacity: 25%; // Uncomment this
+  pointer-events: none; // Add this to ensure clicks pass through
+  // filter: url(#noiseFilter);
+}
+body::after {
+  filter: url(#noiseFilter);
+}
+
 
 * {
   margin: 0;
@@ -60,15 +64,16 @@ ul {
 
 nav,
 footer {
-  z-index: 1000;
+  z-index: 8;
 }
 
 nav {
-  z-index: 1000;
+  z-index: 120;
   background-color: rgb(49, 77, 57);
   left: 0;
   width: 100%;
   padding-right: 1.5rem;
+  
 }
 
 .logo:hover {
@@ -222,6 +227,9 @@ nav {
   overflow: visible;
   right: 0;
   z-index: -1;
+  // z-index: 5;
+  user-select: none;
+  pointer-events: none;
 }
 
 .new {
@@ -229,7 +237,7 @@ nav {
   position: absolute;
   width: 100vw;
   // width: 7000px;
-  height: vh;
+  // height: vh;
   left: 50%;
   transform: translateX(-50%);
   // top: -250px;
@@ -237,9 +245,7 @@ nav {
   overflow: visible;
   opacity: 0.3;
   user-select: none;
-
-
-  // filter: blur(100px);
+  pointer-events: none; 
 }
 
 .liberty-container {
