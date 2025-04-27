@@ -351,6 +351,7 @@ function Gallery() {
   };
 
   function updateNoiseFilterHeight() {
+    console.log(document.documentElement.scrollHeight)
     document.body.style.setProperty(
       "--page-height",
       document.documentElement.scrollHeight + "px"
@@ -378,6 +379,7 @@ function Gallery() {
   }, []);
 
   useEffect(() => {
+    updateNoiseFilterHeight();
     if (!isCalculating) {
       calculatePositions();
     }
@@ -393,6 +395,8 @@ function Gallery() {
   }, [isExpanded, currentProjectIndex]);
 
   return (
+    <>
+
     <div className="gallery" ref={containerRef}>
       {projectsData.projects.map((project, i) => (
         <Item
@@ -421,16 +425,24 @@ function Gallery() {
         <div className="expanded-item">
           <ProjectTitle
             key={currentProjectIndex}
-            title={projectsData.projects[currentProjectIndex].name}
+            title={
+              projectsData.projects[currentProjectIndex]?.full_name ||
+              projectsData.projects[currentProjectIndex]?.name
+            }
             isCollapsing={isCollapsing}
           />
           <ExpandedBody
-            text={projectsData.projects[currentProjectIndex].content}
             isCollapsing={isCollapsing}
+            description={projectsData.projects[currentProjectIndex].description}
           />
         </div>
       )}
+
     </div>
+
+    <div style={{ minHeight: isExpanded ? 100 : 600 }}></div>
+
+    </>
   );
 }
 

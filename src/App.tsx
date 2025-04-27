@@ -3,6 +3,7 @@ import Gallery from "./components/Gallery";
 import Navbar from "./components/Navbar";
 import TurbulenceEffect from "./components/TurbulenceEfect";
 import "/css/main.scss";
+import "/css/background.scss";
 
 function App() {
   return (
@@ -41,7 +42,6 @@ function App() {
 
       <Gallery />
 
-      <div style={{ minHeight: 600 }}></div>
 
       <Footer />
 
