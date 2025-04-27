@@ -1,5 +1,4 @@
 // import "/css/main.scss";
-import Portrait from "/portrait.jpg";
 
 function Item({
   index,
