@@ -9,7 +9,7 @@ function Footer() {
       </div>
       <button></button>
       <div className="flower-container">
-        <img className="flower" src="/flower.svg" alt="flower" />
+        <img className="flower" src="flower.svg" alt="flower" />
       </div>
     </footer>
   );

@@ -33,7 +33,7 @@ function Item({
       >
         {name}
         {isExpanded && (
-          <img style={{ width: 15, opacity: 0.9 }} src="/close.png" alt="close" />
+          <img style={{ width: 15, opacity: 0.9 }} src="close.png" alt="close" />
         )}
       </p>
       <img

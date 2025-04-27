@@ -11,7 +11,7 @@ const cwd = process.cwd();
 export default defineConfig({
   // base: "./",
   base: "/portfolio/",
-  // base: process.env.PRODUCTION == "true" ? "/portfolio/" : './', // return this one to './'
+  // base: process.env.PRODUCTION == "true" ? "/portfolio/" : '/portfolio/', // return this one to './'
   
   publicDir: path.join(cwd, "public"),
   root: path.join(cwd, "src"),

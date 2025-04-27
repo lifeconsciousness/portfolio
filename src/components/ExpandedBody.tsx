@@ -24,7 +24,7 @@ function ExpandedBody({ isCollapsing, description }: ExpandedBodyProps) {
       const loadMarkdownContent = async () => {
         try {
           setIsLoading(true)
-          const response = await fetch(`/descriptions/${description}`);
+          const response = await fetch(`descriptions/${description}`);
           const content = await response.text();
           setMarkdownContent(content);
         } catch (error) {

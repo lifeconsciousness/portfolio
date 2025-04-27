@@ -19,7 +19,7 @@ function App() {
         </div>   */}
 
       <div id="background-svg" className="new-container">
-        <img className="new" src="/pillar.svg" alt="flower" />
+        <img className="new" src="pillar.svg" alt="flower" />
       </div>
 
       {/* <div className="barbed-container">

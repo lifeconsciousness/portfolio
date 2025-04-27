@@ -408,7 +408,7 @@ function Gallery() {
           //     ? `${project.filename}`
           //     : `/img/${project.filename}`
           // }
-          imgSrc={`/${project.filename}`}
+          imgSrc={`${project.filename}`}
           imgAlt={project.name}
           className={`item-${i}`}
           style={{
