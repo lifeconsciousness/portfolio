@@ -206,7 +206,7 @@ function Gallery() {
             ease: "power3.inOut",
             onComplete: () => {
               setIsCollapsing(false);
-            }
+            },
           });
         }
       });
@@ -230,7 +230,6 @@ function Gallery() {
           setCurrentProjectIndex(index);
           calculatePositions();
           setIsCollapsing(false);
-
         },
       });
 
@@ -259,6 +258,15 @@ function Gallery() {
     if (!isCalculating) {
       calculatePositions();
     }
+
+    const backgroundElement = document.getElementById("background-svg");
+    if (backgroundElement) {
+      gsap.to(backgroundElement, {
+        filter: isExpanded ? "blur(100px)" : "blur(0px)",
+        duration: 0.9,
+        ease: "power3.inOut",
+      });
+    }
   }, [isExpanded, currentProjectIndex]);
 
   return (
@@ -268,7 +276,11 @@ function Gallery() {
           index={i}
           key={i}
           name={project.name}
-          imgSrc={`/img/${project.filename}`}
+          imgSrc={
+            import.meta.env.PRODUCTION == "true"
+              ? `${project.filename}`
+              : `/img/${project.filename}`
+          }
           imgAlt={project.name}
           className={`item-${i}`}
           style={{
@@ -288,7 +300,10 @@ function Gallery() {
             title={projectsData.projects[currentProjectIndex].name}
             isCollapsing={isCollapsing}
           />
-          <ExpandedBody text={projectsData.projects[currentProjectIndex].content} isCollapsing={isCollapsing}/>
+          <ExpandedBody
+            text={projectsData.projects[currentProjectIndex].content}
+            isCollapsing={isCollapsing}
+          />
         </div>
       )}
     </div>

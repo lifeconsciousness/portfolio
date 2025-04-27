@@ -236,7 +236,39 @@ nav {
   height: vh;
   left: 50%;
   transform: translateX(-50%);
-  top: -250px;
+  // top: -250px;
+  // rotate: 180deg;
+  overflow: visible;
+  opacity: 0.3;
+  user-select: none;
+
+
+  // filter: blur(100px);
+}
+
+.liberty-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  // width: 70vw;
+  // height: 70vh;
+  // width: 1000px;
+  // height: 1000px;
+  overflow: visible;
+  right: 0;
+  z-index: -1;
+}
+
+.liberty {
+  // object-fit: fill;
+  position: absolute;
+  width: 100vw;
+  // width: 7000px;
+  height: vh;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 250px;
   // rotate: 180deg;
   overflow: visible;
   opacity: 0.3;

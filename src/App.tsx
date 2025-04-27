@@ -16,10 +16,10 @@ function App() {
           <img className="butterfly" src="/img/butterfly0.svg" alt="flower" />
         </div>   */}
 
-      {/* <div className="new-container">
-          <img className="new" src="/img/pillar.svg" alt="flower" />
-        </div>   */}
-        
+      <div id="background-svg" className="new-container">
+        <img className="new" src="/img/pillar.svg" alt="flower" />
+      </div>
+
       {/* <div className="barbed-container">
           <img className="barbed" src="/img/barbed-wire.svg" alt="flower" />
         </div> */}
@@ -32,15 +32,15 @@ function App() {
           <img className="new" src="/img/LeafyFrame4.svg" alt="flower" />
         </div> */}
 
-      {/* <div className="new-container">
-          <img className="new" src="/img/twolibertywomen.svg" alt="flower" />
+      {/* <div className="liberty-container">
+          <img className="liberty" src="/img/twolibertywomen.svg" alt="flower" />
         </div> */}
 
       <div style={{ minHeight: 60 }}></div>
 
       <Gallery />
 
-      <div style={{ minHeight: 300 }}></div>
+      <div style={{ minHeight: 600 }}></div>
 
       <footer>
         <div className="title-wrapper">

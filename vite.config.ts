@@ -9,9 +9,9 @@ const cwd = process.cwd();
 
 // https://vite.dev/config/
 export default defineConfig({
-  // base: "./",
+  base: "./",
   // base: "/portfolio/",
-  base: process.env.PRODUCTION == "true" ? "/portfolio/" : './',
+  // base: process.env.PRODUCTION == "true" ? "/portfolio/" : '/.', // return this one to './'
   
   publicDir: path.join(cwd, "public"),
   root: path.join(cwd, "src"),
