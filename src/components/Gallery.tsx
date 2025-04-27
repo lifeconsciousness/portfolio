@@ -276,10 +276,13 @@ function Gallery() {
           index={i}
           key={i}
           name={project.name}
+          // imgSrc={
+          //   import.meta.env.PRODUCTION == "true"
+          //     ? `${project.filename}`
+          //     : `/img/${project.filename}`
+          // }
           imgSrc={
-            import.meta.env.PRODUCTION == "true"
-              ? `${project.filename}`
-              : `/img/${project.filename}`
+              `/${project.filename}`
           }
           imgAlt={project.name}
           className={`item-${i}`}

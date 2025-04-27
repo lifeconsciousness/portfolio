@@ -25,9 +25,28 @@ function ProjectTitle({ title, isCollapsing }: ProjectTitleProps) {
       perspective: 400,
       y: "100%",
     });
+
+    // Animate words in
+    gsap.to(newSplit.words, {
+      y: "0%",
+      duration: 1,
+      stagger: 0.1,
+      ease: "power3.out",
+    });
   };
 
   useEffect(() => {
+    // Handle title changes and initial setup
+    setupTitle();
+
+    // Cleanup function
+    return () => {
+      titleSplit?.revert();
+    };
+  }, [title]);
+
+  useEffect(() => {
+    // Handle collapse animation
     if (isCollapsing && titleSplit) {
       gsap.to(titleSplit.words, {
         y: "-100%",
@@ -36,31 +55,11 @@ function ProjectTitle({ title, isCollapsing }: ProjectTitleProps) {
         ease: "power3.in",
       });
     }
-  }, [isCollapsing]);
-
-  // Reset and re-run animation when title changes
-  useEffect(() => {
-    titleSplit?.revert(); // Cleanup previous split
-    setTitleSplit(null); // Reset state
-    setupTitle(); // Setup new split
-  }, [title]);
-
-  useEffect(() => {
-    if (titleSplit) {
-      gsap.to(titleSplit.words, {
-        y: "0%",
-        duration: 1,
-        stagger: 0.1,
-        ease: "power3.out",
-      });
-    }
-  }, [titleSplit]);
-
-  
+  }, [isCollapsing, titleSplit]);
 
   return (
     <h2 className="project-title" style={{ overflow: "hidden" }} ref={titleRef}>
-      {title} 
+      {title}
     </h2>
   );
 }

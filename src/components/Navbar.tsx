@@ -37,13 +37,13 @@ function Navbar() {
         <div className="links">
           <ul className="socials">
             <li>
-              <a href="">about</a>
+              <a href="#footer">about</a>
             </li>
             <li>
-              <a href="">github</a>
+              <a href="https://github.com/lifeconsciousness" target="blank">github</a>
             </li>
             <li>
-              <a href="">linkedin</a>
+              <a href="https://www.linkedin.com/in/maksym-tovstolis-509597256/" target="blank">linkedin</a>
             </li>
           </ul>
         </div>

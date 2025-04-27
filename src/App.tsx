@@ -1,3 +1,4 @@
+import Footer from "./components/Footer";
 import Gallery from "./components/Gallery";
 import Navbar from "./components/Navbar";
 import TurbulenceEffect from "./components/TurbulenceEfect";
@@ -17,7 +18,7 @@ function App() {
         </div>   */}
 
       <div id="background-svg" className="new-container">
-        <img className="new" src="/img/pillar.svg" alt="flower" />
+        <img className="new" src="/pillar.svg" alt="flower" />
       </div>
 
       {/* <div className="barbed-container">
@@ -42,18 +43,7 @@ function App() {
 
       <div style={{ minHeight: 600 }}></div>
 
-      <footer>
-        <div className="title-wrapper">
-          <h1 className="title">
-            {/* <span>Let's get in contact :)</span> */}
-            <span>Let's work together :)</span>
-          </h1>
-        </div>
-        <button></button>
-        <div className="flower-container">
-          <img className="flower" src="/img/flower.svg" alt="flower" />
-        </div>
-      </footer>
+      <Footer />
 
       <TurbulenceEffect />
     </>
