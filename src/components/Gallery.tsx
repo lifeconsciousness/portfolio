@@ -350,14 +350,6 @@ function Gallery() {
     }
   };
 
-  function updateNoiseFilterHeight() {
-    console.log(document.documentElement.scrollHeight)
-    document.body.style.setProperty(
-      "--page-height",
-      document.documentElement.scrollHeight + "px"
-    );
-  }
-
   useEffect(() => {
     setIsCalculating(false);
 
@@ -373,13 +365,10 @@ function Gallery() {
 
     return () => {
       window.removeEventListener("resize", calculatePositions);
-      window.addEventListener("resize", updateNoiseFilterHeight);
-      window.addEventListener("load", updateNoiseFilterHeight);
     };
   }, []);
 
   useEffect(() => {
-    updateNoiseFilterHeight();
     if (!isCalculating) {
       calculatePositions();
     }
@@ -403,11 +392,6 @@ function Gallery() {
           index={i}
           key={i}
           name={project.name}
-          // imgSrc={
-          //   import.meta.env.PRODUCTION == "true"
-          //     ? `${project.filename}`
-          //     : `/img/${project.filename}`
-          // }
           imgSrc={`${project.filename}`}
           imgAlt={project.name}
           className={`item-${i}`}
