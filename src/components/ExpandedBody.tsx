@@ -49,6 +49,12 @@ function ExpandedBody({ isCollapsing, description }: ExpandedBodyProps) {
   
       const newSplit = new SplitType(textRef.current, { types: "lines" });
       setTextSplit(newSplit);
+
+
+      document.querySelectorAll('a[href]').forEach(function(link) {
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
+      });
   
       gsap.set(newSplit.lines, {
         y: 50,
