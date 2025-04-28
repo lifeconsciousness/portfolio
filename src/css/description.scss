@@ -15,6 +15,12 @@
     font-size: 2rem;
     margin: 2rem 0 1rem;
   }
+
+  .expanded-body h3 {
+    // font-size: 1.5rem;
+    // margin: 2rem 0 1rem;
+    width: 100%;
+  }
   
   .expanded-body p {
     margin-bottom: 1rem;
@@ -22,8 +28,9 @@
   }
   
   .expanded-body a {
-    color: #0066cc;
+    color: #0a7cef;
     text-decoration: none;
+    width: 100%;
   }
   
   .expanded-body a:hover {

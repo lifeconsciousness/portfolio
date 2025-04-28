@@ -3,7 +3,7 @@
 
 Web-application that calculates the approximate max legal price of any property that is used for living in the Netherlands. User can look up different information about the house such as total area, build year, WOZ value, energy label and energy Index. The application scrapes data from multiple publicly open databases, shows it and calculates the result based on it.
 
-### [Live version 🏠](https://rentcalculator.onrender.com)
+### [Live version 🏠](https://rentcalculator.onrender.com) 
 
 ## Features
 
