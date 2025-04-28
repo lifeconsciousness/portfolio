@@ -67,10 +67,10 @@ function Gallery() {
     const container = containerRef.current;
     const centerX = container.clientWidth / 2 - 130;
     // const centerY = isExpanded ? 200 : container.clientHeight / 2 - 200;
-    const centerY = isExpanded ? 200 : container.clientHeight / 2 - 200;
+    const centerY = isExpanded ? 200 : container.clientHeight / 2 - 140;
 
     // Pre-calculate constants
-    const minX = isExpanded ? container.clientWidth * 0.5 : 0;
+    const minX = isExpanded ? container.clientWidth * 0.56 : 0;
     const adjustedCenterX = isExpanded ? container.clientWidth * 0.8 : centerX;
     const maxRadius = Math.max(container.clientWidth, container.clientHeight);
 
@@ -129,7 +129,7 @@ function Gallery() {
           if (
             x >= minX &&
             y >= 0 &&
-            x + itemSize.width <= container.clientWidth &&
+            x + itemSize.width <= container.clientWidth - 20 &&
             y + itemSize.height <= container.clientHeight &&
             !isOverlapping(x, y)
           ) {

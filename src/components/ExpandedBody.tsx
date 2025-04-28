@@ -33,12 +33,12 @@ function ExpandedBody({ isCollapsing, description }: ExpandedBodyProps) {
           setIsLoading(false);
         }
       };
-
+ 
       if (description) {
         loadMarkdownContent();
       }
     }, [description]);
-
+ 
 
     const setupText = () => {
       if (!textRef.current) return;

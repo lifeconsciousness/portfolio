@@ -29,15 +29,15 @@ body::after {
   top: -200px;
   content: '';
   width: 100%;
-  height: 270vh;
+  // height: 270vh;
   z-index: -1;
   // background-color: rgb(17, 61, 46); // Add this to see the effect
   background-color: rgba(18, 83, 11, 0.452); // Add this to see the effect
   opacity: 25%; // Uncomment this
   pointer-events: none; // Add this to ensure clicks pass through
-  // filter: url(#noiseFilter);
 }
 body::after {
+  height: var(--page-height);
   filter: url(#noiseFilter);
 }
 
