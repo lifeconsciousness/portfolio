@@ -5,22 +5,31 @@ import TurbulenceEffect from "./components/TurbulenceEfect";
 import "/css/main.scss";
 import "/css/background.scss";
 import Background from "./components/Background";
+import { useState } from "react";
+import Loader from "./components/Loader";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
     <>
-      <Navbar />
+      {isLoading ? (
+        <Loader onFinished={() => setIsLoading(false)} />
+      ) : (
+        <>
+          <Navbar />
 
-      <Background />
+          <Background />
 
-      <div style={{ minHeight: 60 }}></div>
+          <div style={{ minHeight: 60 }}></div>
 
-      <Gallery />
+          <Gallery />
 
+          <Footer />
 
-      <Footer />
-
-      <TurbulenceEffect />
+          <TurbulenceEffect />
+        </>
+      )}
     </>
   );
 }

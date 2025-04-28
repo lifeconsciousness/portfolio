@@ -1,0 +1,62 @@
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(49, 77, 57);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 1s ease-out;
+  
+    &.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+  
+  .loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  
+    .progress {
+      font-size: 1rem;
+      color: #e9f0f9;
+      font-family: "Noto Sans Mono", monospace;
+    }
+  
+    .circles {
+      display: flex;
+      gap: 1rem;
+    }
+  
+    .circle {
+      width: 20px;
+      height: 20px;
+      background-color: #e9f0f9;
+      border-radius: 50%;
+      animation: bounce 0.5s alternate infinite;
+  
+      &:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+  
+      &:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+    }
+  }
+  
+  @keyframes bounce {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-20px);
+    }
+  }
