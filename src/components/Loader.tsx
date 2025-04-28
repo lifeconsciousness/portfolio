@@ -46,8 +46,8 @@ function Loader({ onFinished }: LoaderProps) {
     return () => clearTimeout(fallbackTimer);
   }, [onFinished, totalImages]);
 
-//   const progress = Math.round((loadedImages / totalImages) * 100);
-  const progress = 99;
+  const progress = Math.round((loadedImages / totalImages) * 100);
+//   const progress = 99;
 
   return (
     <div className={`loader-container ${isHiding ? 'hide' : ''}`}>
