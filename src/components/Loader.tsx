@@ -41,7 +41,7 @@ function Loader({ onFinished }: LoaderProps) {
     const fallbackTimer = setTimeout(() => {
       setIsHiding(true);
       onFinished?.();
-    }, 5000);
+    }, 50);
 
     return () => clearTimeout(fallbackTimer);
   }, [onFinished, totalImages]);
