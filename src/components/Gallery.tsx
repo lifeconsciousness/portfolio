@@ -6,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 import projectsData from "../projects/projects.json";
 import { useRef, useState, useEffect } from "react";
 import ExpandedBody from "./ExpandedBody";
+import ExpandedBodyOld from "./ExpandedBodyOLD";
 
 interface Position {
   x: number;
@@ -22,6 +23,7 @@ interface BoundingBox {
 function Gallery() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [positions, setPositions] = useState<Position[]>([]);
+  const [expandedPositions, setExpandedPositions] = useState<Position[]>([]);
   const [gap, setGap] = useState(10);
   const itemSize = { width: 200, height: 250 }; // fixed item size
   const [isCalculating, setIsCalculating] = useState(true);
@@ -66,10 +68,32 @@ function Gallery() {
 
     const container = containerRef.current;
     const centerX = container.clientWidth / 2 - 130;
-    // const centerY = isExpanded ? 200 : container.clientHeight / 2 - 200;
     const centerY = isExpanded ? 200 : container.clientHeight / 2 - 140;
 
-    // Pre-calculate constants
+    // Calculate expanded positions if not already stored
+    if (expandedPositions.length === 0) {
+      const newExpandedPositions = projectsData.projects.map((_, index) => ({
+        x: 50,
+        y: 50,
+      }));
+      setExpandedPositions(newExpandedPositions);
+    }
+
+    // Track actual bounding boxes instead of just positions
+    const usedBoxes: BoundingBox[] = [];
+    const positions: Position[] = [];
+
+    // Use stored expanded position if available
+    if (isExpanded && expandedPositions[currentProjectIndex]) {
+      positions[currentProjectIndex] = expandedPositions[currentProjectIndex];
+      usedBoxes.push({
+        x: expandedPositions[currentProjectIndex].x,
+        y: expandedPositions[currentProjectIndex].y,
+        width: container.clientWidth * 0.5,
+        height: container.clientHeight * 0.5,
+      });
+    }
+
     const minX = isExpanded ? container.clientWidth * 0.56 : 0;
     const adjustedCenterX = isExpanded ? container.clientWidth * 0.8 : centerX;
     const maxRadius = Math.max(container.clientWidth, container.clientHeight);
@@ -78,21 +102,6 @@ function Gallery() {
     const angles = new Float32Array(16);
     for (let i = 0; i < 16; i++) {
       angles[i] = (i * Math.PI) / 8;
-    }
-
-    // Track actual bounding boxes instead of just positions
-    const usedBoxes: BoundingBox[] = [];
-    const positions: Position[] = [];
-
-    // Add expanded item box if needed
-    if (isExpanded) {
-      positions[currentProjectIndex] = { x: 50, y: 50 };
-      usedBoxes.push({
-        x: 50,
-        y: 50,
-        width: container.clientWidth * 0.5,
-        height: container.clientHeight * 0.5,
-      });
     }
 
     const isOverlapping = (x: number, y: number): boolean => {
@@ -159,7 +168,6 @@ function Gallery() {
     setPositions(positions);
   };
 
-
   const expandItem = (index: number) => {
     // If clicking on the currently expanded item to collapse it
     if (isExpanded && currentProjectIndex === index) {
@@ -188,10 +196,7 @@ function Gallery() {
           });
         });
       }, 1000);
-      // setIsExpanded(false);
-    }
-    // If clicking a new item (whether another item is expanded or not)
-    else {
+    } else {
       setIsCollapsing(true);
 
       // First, make sure all items are in their original position
@@ -215,13 +220,12 @@ function Gallery() {
 
       setGap(20);
 
-      setIsCollapsing(true);
-
-      // Then expand the clicked item
+      // Use stored expanded position
+      const targetPosition = expandedPositions[index];
       gsap.to(`.item-${index}`, {
         position: "relative",
-        top: "50px",
-        left: "50px",
+        top: `${targetPosition.y}px`,
+        left: `${targetPosition.x}px`,
         width: "50vw",
         height: "50vh",
         zIndex: 100,
@@ -243,7 +247,6 @@ function Gallery() {
     setTimeout(() => {
       setIsCalculating(true);
       calculatePositions();
-      // window.addEventListener("resize", calculatePositions);
       window.addEventListener("resize", () => {
         window.location.reload();
       });
@@ -272,47 +275,49 @@ function Gallery() {
 
   return (
     <>
-
-    <div className="gallery" ref={containerRef}>
-      {projectsData.projects.map((project, i) => (
-        <Item
-          index={i}
-          key={i}
-          name={project.name}
-          imgSrc={`${project.filename}`}
-          imgAlt={project.name}
-          className={`item-${i}`}
-          style={{
-            position: "absolute",
-            width: `${itemSize.width}px`,
-            height: `${itemSize.height}px`,
-          }}
-          onExpand={() => expandItem(i)}
-          isExpanded={isExpanded && currentProjectIndex === i}
-        />
-      ))}
-
-      {isExpanded && (
-        <div className="expanded-item">
-          <ProjectTitle
-            key={currentProjectIndex}
-            title={
-              projectsData.projects[currentProjectIndex]?.full_name ||
-              projectsData.projects[currentProjectIndex]?.name
-            }
-            isCollapsing={isCollapsing}
+      <div className="gallery" ref={containerRef}>
+        {projectsData.projects.map((project, i) => (
+          <Item
+            index={i}
+            key={i}
+            name={project.name}
+            imgSrc={`${project.filename}`}
+            imgAlt={project.name}
+            className={`item-${i}`}
+            style={{
+              position: "absolute",
+              width: `${itemSize.width}px`,
+              height: `${itemSize.height}px`,
+            }}
+            onExpand={() => expandItem(i)}
+            isExpanded={isExpanded && currentProjectIndex === i}
           />
-          <ExpandedBody
-            isCollapsing={isCollapsing}
-            description={projectsData.projects[currentProjectIndex].description}
-          />
-        </div>
-      )}
+        ))}
 
-    </div>
+        {isExpanded && (
+          <div className="expanded-item">
+            <ProjectTitle
+              key={currentProjectIndex}
+              title={
+                projectsData.projects[currentProjectIndex]?.full_name ||
+                projectsData.projects[currentProjectIndex]?.name
+              }
+              isCollapsing={isCollapsing}
+            />
+            <ExpandedBody
+              isCollapsing={isCollapsing}
+              index={currentProjectIndex}
+              name={projectsData.projects[currentProjectIndex]?.description}
+            />
+            {/* <ExpandedBodyOld
+              isCollapsing={isCollapsing}
+              description={projectsData.projects[currentProjectIndex]?.description}
+            /> */}
+          </div>
+        )}
+      </div>
 
-    <div style={{ minHeight: isExpanded ? 100 : 600 }}></div>
-
+      <div style={{ minHeight: isExpanded ? 100 : 600 }}></div>
     </>
   );
 }

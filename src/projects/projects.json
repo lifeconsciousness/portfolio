@@ -11,27 +11,27 @@
       "name": "Lamastream",
       "full_name": "Lamastream Twitch extension",
       "filename": "extension.png",
-      "description": "rent_calculator.MD",
+      "description": "lamastream.MD",
       "priority": 0
     },
     {
-      "name": "Fourth",
+      "name": "Grin chat",
       "filename": "shadow.png",
-      "description": "rent_calculator.MD",
+      "description": "grinchat.MD",
       "priority": 2
     },
     {
-      "name": "Fifth",
+      "name": "Drone",
       "filename": "ep_cover.png",
-      "description": "rent_calculator.MD",
+      "description": "drone.MD",
       "priority": 1
     },
     {
-      "name": "Sixth Two More",
+      "name": "Property search engine",
       "filename": "1.png",
-      "description": "rent_calculator.MD",
+      "description": "rent_search_engine.MD",
       "priority": 2
-    },
+    }, 
     {
       "name": "Me",
       "filename": "portrait.JPG",
