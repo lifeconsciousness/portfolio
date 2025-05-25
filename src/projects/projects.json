@@ -3,26 +3,80 @@
     {
       "name": "Rent calculator",
       "full_name": "Rent calculator and house info lookup",
-      "filename": "house.png",
+      "filename": "house.jpg",
       "description": "rent_calculator.MD",
-      "priority": 1
+      "priority": 0,
+      "isSmall": "false",
+      "imgPosition": "center"
+    },
+    {
+      "name": "Property search platform",
+      "filename": "house-search.jpeg",
+      "description": "rent_search_engine.MD",
+      "priority": 1,
+      "isSmall": "false",
+      "imgPosition": "left"
+    },
+    {
+      "name": "FPV drone",
+      "filename": "drone.png",
+      "description": "drone.MD",
+      "priority": 1,
+      "isSmall": "true",
+      "imgPosition": "center"
+    },
+    {
+      "name": "Grin Chat",
+      "full_name": "Grin chat - end to end encrypted messenger",
+      "filename": "messenging.png",
+      "description": "grinchat.MD",
+      "priority": 2,
+      "isSmall": "true",
+      "imgPosition": "right"
     },
     {
       "name": "Lamastream",
       "full_name": "Lamastream Twitch extension",
-      "filename": "extension.png",
+      "filename": "twitch.png",
       "description": "lamastream.MD",
+      "priority": 1,
+      "isSmall": "true",
+      "imgPosition": "center"
+    },
+    {
+      "name": "Me",
+      "full_name": "An aspiring full-stack developer",
+      "filename": "portrait.JPG",
+      "description": "me.MD",
+      "priority": 0,
+      "isSmall": "false",
+      "imgPosition": "center"
+    }
+  ],
+  "projects1": [
+    {
+      "name": "Lamastream",
+      "full_name": "Lamastream Twitch extension",
+      "filename": "twitch.png",
+      "description": "lamastream.MD",
+      "priority": 1
+    },
+    {
+      "name": "Rent calculator",
+      "full_name": "Rent calculator and house info lookup",
+      "filename": "house.png",
+      "description": "rent_calculator.MD",
       "priority": 0
     },
     {
       "name": "Grin chat",
-      "filename": "shadow.png",
+      "filename": "messenger.jpg",
       "description": "grinchat.MD",
       "priority": 2
     },
     {
       "name": "Drone",
-      "filename": "ep_cover.png",
+      "filename": "drone.png",
       "description": "drone.MD",
       "priority": 1
     },
@@ -30,8 +84,8 @@
       "name": "Property search engine",
       "filename": "1.png",
       "description": "rent_search_engine.MD",
-      "priority": 2
-    }, 
+      "priority": 1
+    },
     {
       "name": "Me",
       "filename": "portrait.JPG",

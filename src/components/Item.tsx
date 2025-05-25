@@ -9,6 +9,8 @@ function Item({
   onExpand,
   isExpanded,
   className,
+  isSmall,
+  imgPosition,
 }: {
   index: number;
   name: string;
@@ -18,9 +20,11 @@ function Item({
   onExpand: () => void;
   isExpanded: boolean;
   className: string;
+  isSmall: string;
+  imgPosition: string;
 }) {
   return (
-    <div className={`item ${className} ${index}`} style={style} onClick={onExpand}>
+    <div className={`item ${className} ${index} ${isSmall === "true" ? "item-small" : ""}`} style={style} onClick={onExpand}>
       <p
         style={{
           color: "black",
@@ -39,7 +43,7 @@ function Item({
       <img
         src={imgSrc}
         alt={imgAlt}
-        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: imgPosition, }}
       />
 
       {isExpanded && (

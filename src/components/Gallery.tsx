@@ -291,6 +291,8 @@ function Gallery() {
             }}
             onExpand={() => expandItem(i)}
             isExpanded={isExpanded && currentProjectIndex === i}
+            isSmall={project.isSmall}
+            imgPosition={project.imgPosition}
           />
         ))}
 

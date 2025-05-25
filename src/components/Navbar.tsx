@@ -29,7 +29,7 @@ function Navbar() {
       >
         <div className="logo">
           <a href="http://" target="_blank" rel="noopener noreferrer">
-            Maksym Tovstolis - under construction
+            Maksym Tovstolis - most notable projects
           </a>
         {/* <img className="butterfly" src="/img/butterfly.svg" alt="flower" /> */}
         </div>

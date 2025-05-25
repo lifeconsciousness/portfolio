@@ -7,7 +7,7 @@ function Footer() {
           <span>Let's work together :)</span>
         </h2>
         <div className="footer-links-text">
-          <a href="mailto:nichogo@proton.me">Email</a>
+          <a href="mailto:nichogo@proton.me">Email - nichogo@proton.me</a>
           <a href="https://www.linkedin.com/in/maksym-tovstolis-509597256/" target="_blank">LinkedIn</a>
           <a href="https://github.com/lifeconsciousness" target="_blank">GitHub</a>
 

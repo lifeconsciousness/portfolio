@@ -12,8 +12,6 @@
   font-weight: 700;
 
   position: absolute;
-  height: 300px;
-  width: 200px;
   z-index: 20;
 
   overflow: hidden;
@@ -27,6 +25,15 @@
 
   will-change: transform;
   
+}
+
+.item-regular {
+  height: 300px;
+  width: 200px;
+}
+.item-small {
+  height: 200px;
+  width: 133px;
 }
 
 .item:hover{
@@ -64,4 +71,6 @@ img {
 .project-title {
   // color: rgb(95, 185, 253);
   color: rgb(180, 252, 244);
+  word-break: break-all;
+  max-width: 50%;
 }
