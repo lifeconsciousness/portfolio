@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import SplitType from "split-type";
 import gsap from "gsap";
 
@@ -8,13 +8,13 @@ interface ProjectTitleProps {
 }
 
 function ProjectTitle({ title, isCollapsing }: ProjectTitleProps) {
+  const [displayedTitle, setDisplayedTitle] = useState(title);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const splitRef = useRef<SplitType | null>(null);
 
   useEffect(() => {
     if (!titleRef.current) return;
 
-    // Always revert previous split before splitting again
     splitRef.current?.revert();
 
     const split = new SplitType(titleRef.current, { types: "words" });
@@ -36,22 +36,29 @@ function ProjectTitle({ title, isCollapsing }: ProjectTitleProps) {
       splitRef.current?.revert();
       splitRef.current = null;
     };
-  }, [title]);
+  }, [displayedTitle]);
 
   useEffect(() => {
     if (!isCollapsing || !splitRef.current) return;
 
+    // Animate out, then delay update of title
     gsap.to(splitRef.current.words, {
       y: "-100%",
       duration: 0.5,
       stagger: 0.05,
       ease: "power3.in",
+      onComplete: () => {
+        // Delay title update until collapse animation finishes
+        setTimeout(() => {
+          setDisplayedTitle(title);
+        }, 1000)
+      },
     });
   }, [isCollapsing]);
 
   return (
     <h2 className="project-title" style={{ overflow: "hidden" }} ref={titleRef}>
-      {title}
+      {displayedTitle}
     </h2>
   );
 }

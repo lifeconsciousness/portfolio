@@ -275,7 +275,7 @@ function Gallery() {
 
   return (
     <>
-      <div className="gallery" ref={containerRef}>
+      <div className="gallery" id="gallery" ref={containerRef}>
         {projectsData.projects.map((project, i) => (
           <Item
             index={i}
