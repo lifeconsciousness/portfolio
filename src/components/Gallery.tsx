@@ -6,7 +6,6 @@ import { useGSAP } from "@gsap/react";
 import projectsData from "../projects/projects.json";
 import { useRef, useState, useEffect } from "react";
 import ExpandedBody from "./ExpandedBody";
-import ExpandedBodyOld from "./ExpandedBodyOLD";
 
 interface Position {
   x: number;
@@ -72,7 +71,7 @@ function Gallery() {
 
     // Calculate expanded positions if not already stored
     if (expandedPositions.length === 0) {
-      const newExpandedPositions = projectsData.projects.map((_, index) => ({
+      const newExpandedPositions = projectsData.projects.map(() => ({
         x: 50,
         y: 50,
       }));
