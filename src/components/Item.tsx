@@ -36,9 +36,11 @@ function Item({
         }}
       >
         {name}
-        {isExpanded && (
-          <img style={{ width: 15, opacity: 0.9 }} src="close.png" alt="close" />
-        )}
+        {isExpanded ? (
+          <img style={{ width: 15, opacity: 0.9 }} src="close.png" alt="close-icon" />
+        ) :
+          (name === "Rent calculator" || name === "Property search platform" ? <img style={{ width: 20, opacity: 1 }} src="star.png" alt="yellow-star" />  : <></>)
+        }
       </p>
       <img
         src={imgSrc}

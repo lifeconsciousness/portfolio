@@ -49,6 +49,11 @@ function ExpandedBody({ isCollapsing, index, name }: ExpandedBodyProps) {
       stagger: 0.05,
       ease: "power3.in"
     });
+
+    document.querySelectorAll('a[href]').forEach(function (link) {
+      link.setAttribute('target', '_blank');
+      link.setAttribute('rel', 'noopener noreferrer');
+    });
   }, [markdownContent]);
 
 

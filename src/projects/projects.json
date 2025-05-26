@@ -26,8 +26,8 @@
       "imgPosition": "center"
     },
     {
-      "name": "Grin Chat",
-      "full_name": "Grin chat - end to end encrypted messenger",
+      "name": "Grin chat",
+      "full_name": "Grin Chat - end to end encrypted messenger",
       "filename": "messenging.png",
       "description": "grinchat.MD",
       "priority": 2,
