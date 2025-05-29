@@ -24,7 +24,8 @@ function Gallery() {
   const [positions, setPositions] = useState<Position[]>([]);
   const [expandedPositions, setExpandedPositions] = useState<Position[]>([]);
   const [gap, setGap] = useState(10);
-  const itemSize = { width: 200, height: 250 }; // fixed item size
+  // const itemSize = { width: 200, height: 250 }; // fixed item size
+  const itemSize = { width: screen.width / 9, height: screen.height / 4.5 }; // fixed item size
   const [isCalculating, setIsCalculating] = useState(true);
   const [isExpanded, setIsExpanded] = useState(false);
   const [currentProjectIndex, setCurrentProjectIndex] = useState<number>(0);
@@ -66,8 +67,11 @@ function Gallery() {
     if (!containerRef.current) return;
 
     const container = containerRef.current;
-    const centerX = container.clientWidth / 2 - 130;
-    const centerY = isExpanded ? 200 : container.clientHeight / 2 - 140;
+    // const centerX = container.clientWidth / 2 - 130;
+    // const centerY = isExpanded ? 200 : container.clientHeight / 2 - 140;
+
+    const centerX = container.clientWidth / 2 - screen.width / 15;
+    const centerY = isExpanded ? 200 : container.clientHeight / 2 - screen.height / 9;
 
     // Calculate expanded positions if not already stored
     if (expandedPositions.length === 0) {
@@ -317,6 +321,7 @@ function Gallery() {
         )}
       </div>
 
+      {/* <div style={{ minHeight: isExpanded ? 100 : 600 }}></div> */}
       <div style={{ minHeight: isExpanded ? 100 : 600 }}></div>
     </>
   );
