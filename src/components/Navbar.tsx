@@ -40,7 +40,7 @@ function Navbar() {
               <a href="#gallery">projects</a>
             </li>
             <li>
-              <a href="#footer">contacts</a>
+              <a href="#footer-util">contacts</a>
             </li>
             {/* <li>
               <a href="https://github.com/lifeconsciousness" target="blank">github</a>

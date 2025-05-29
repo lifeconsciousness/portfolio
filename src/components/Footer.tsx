@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <footer id="footer">
-      <div className="title-wrapper">
+      <div className="title-wrapper" id="footer-util">
         <h2 className="title">
           {/* <span>Let's get in contact :)</span> */}
           <span>Let's work together :)</span>

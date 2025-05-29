@@ -307,7 +307,6 @@ function Gallery() {
             />
             <ExpandedBody
               isCollapsing={isCollapsing}
-              index={currentProjectIndex}
               name={projectsData.projects[currentProjectIndex]?.description}
             />
             {/* <ExpandedBodyOld
