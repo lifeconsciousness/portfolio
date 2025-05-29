@@ -1,63 +1,58 @@
 
 
 
-Web-application that calculates the approximate max legal price of any property that is used for living in the Netherlands. User can look up different information about the house such as total area, build year, WOZ value, energy label and energy Index. The application scrapes data from multiple publicly open databases, shows it and calculates the result based on it.
+Web-application that calculates the approximate max legal price of any residential property in the Netherlands. By entering a Dutch address, users can instantly view detailed property information and receive a calculated rent cap based on the **housing points system (woningwaarderingsstelsel)**. The app gathers and analyzes data from multiple official sources to offer a single tool for rent price assessment.
 
-### [Live version 🏠](https://rentcalculator.onrender.com) 
+### [🔗 Live Version](https://rentcalculator.onrender.com)
 
-## Features
+## ⚙️ Key Features
 
-- Calculates rent price in the Netherlands
-- Displays information about the property
-- Shows all previous requests with according info
+- 🧮 **Accurate Rent Price Calculation**  
+  Uses official scoring metrics based on surface area, WOZ value, energy label, amenities, and building age.
+
+- 🏠 **Property Data Lookup**  
+  Automatically displays relevant property details like:
+  - Living space (m²)
+  - Year of construction
+  - WOZ value
+  - Energy label or index
+  - Monument status
+
+- 🗂 **Request History**  
+  Stores and displays all previous queries for easy reference.
+
+- 📊 **Data-Driven Interface**  
+  Results are visual, clear, and aligned with Dutch rental regulation standards.
+
+## 🎯 Purpose
+
+This project was built to solve a real-world problem: the lack of accessible, centralized tools for estimating the legally allowed rent in the Netherlands. It’s also a demonstration of my ability to combine **scraping**, **API integration**, and **frontend development** into a cohesive, user-friendly tool.
 
 
 
-## How to run the application locally
+## 🖼️ Screenshots
 
-Put .env in the root directory. Format:
-
-`PORT = 10000`
-`ENERGY_LABEL_API_KEY =` 
-`BAG_API_KEY =`
-`SPREADSHEET_ID =`
-`GOOGLE_APPLICATION_CREDENTIALS =`
-`NODE_ENV = production OR development`
-
-`npm i` to install dependencies
-
-`npm start` to start the server
-
-`cd frontend && npm run dev` to start the frontend 
-
-## Descirption of main javascript files
-
-- server.js: server set up with express, has endpoint that takes address entered by the user and finds the data about it. Has multiple API requests.
-- scrapeLogic.js: has functions that scrape websites listed below, to obtain information about the house.
-- calculateRentPrice.js: sends API/scraped data to the spreadsheet that calculates the result
-- main.js: makes an API call and displays the result in the frontend, has miscelaneous code for remembering last form input, loading animation, etc.
-
-## Resources that were used to obtain data
-
-- <a href="https://www.kadaster.nl/zakelijk/producten/adressen-en-gebouwen/bag-api-individuele-bevragingen">BAG API</a>
-- <a href="https://epbdwebservices.rvo.nl/">Energy label API</a>
-- <a href="https://www.ep-online.nl/Energylabel/Search">Energy index lookup website</a>
-- <a href="https://www.wozwaardeloket.nl/">WOZ-waarde website</a>
-- <a href="https://monumentenregister.cultureelerfgoed.nl/">Rijksmonumentenregister website</a>
-
-## Screenshots
-Main input form
-
+**Main input form**  
 [![screenshot1.png](https://i.postimg.cc/fb4jHN5j/screenshot1.png)](https://postimg.cc/Xr8CJtRp)
 
-Results display
-
+**Calculated result display**  
 [![screenshot2.png](https://i.postimg.cc/K8RSFnPv/screenshot2.png)](https://postimg.cc/NKqPk2CW)
 
-Records of previous requests
-
+**History of previous requests**  
 [![screenshot3.png](https://i.postimg.cc/xTGBK9QH/screenshot3.png)](https://postimg.cc/2V6HYRV8)
 
 
+## 🔍 How It Works
+
+- A **Node.js + Express** backend handles API calls and scrapes structured data from various public sources.
+- The backend communicates with a custom calculator.
+- A **React-based frontend** provides a smooth user experience with real-time feedback, loading states, and result displays.
+
+
+## 🛠️ Technologies Used
+
+- **Frontend**: React.js, Tailwind CSS
+- **Backend**: Node.js, Express
+- **Scraping / APIs**: Puppeteer, public housing databases
 
 

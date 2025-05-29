@@ -43,6 +43,12 @@ GrinChat follows a modular full-stack architecture:
   - Mongoose schemas with population for relational-like data access
 
 
+## 📸 Screenshots
+
+Active chats
+
+[![image.png](https://i.postimg.cc/0NRSK8fJ/image.png)](https://postimg.cc/9Db0vHsW)
+
 ## Development Challenges
 
 - **Handling WebSocket Events**: Implementing a reliable and efficient event-based communication system for chat, typing indicators, and online status.
@@ -57,15 +63,3 @@ GrinChat follows a modular full-stack architecture:
 - 🚧 Push notifications  
 - 🚧 File/image sharing in chats  
 - 🚧 Improved error handling and offline fallback  
-
-
-## 📸 Screenshots
-
-Active chats
-
-[![image.png](https://i.postimg.cc/0NRSK8fJ/image.png)](https://postimg.cc/9Db0vHsW)
-
-Responsive mobile view
-
-[![image.png](https://i.postimg.cc/8zWJS2Sk/image.png)](https://postimg.cc/qNJMcZqW)
-
