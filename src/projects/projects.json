@@ -19,6 +19,7 @@
     },
     {
       "name": "FPV drone",
+      "full_name": "7 inch FPV drone build",
       "filename": "drone.png",
       "description": "drone.MD",
       "priority": 1,

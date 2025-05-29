@@ -16,7 +16,7 @@ body {
 
   scroll-behavior: smooth;
   background-color: rgb(49, 77, 57);
-
+  overflow-x: hidden;
 }
 
 
@@ -134,7 +134,7 @@ footer {
 
 .footer-links-text {
   margin-top: 40px;
-  margin-left: 30px;
+  margin-left: 700px;
 
   a {
     margin-top: 5px;
